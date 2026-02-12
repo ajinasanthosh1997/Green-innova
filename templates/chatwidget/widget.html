@@ -1,0 +1,226 @@
+{% load static %}
+<div id="chatwidget-container" class="fixed bottom-6 right-6 z-[60]">
+    <button id="chatwidget-toggle" class="w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform animate-bounce-slow">
+        <i class="fas fa-comment-dots text-2xl"></i>
+    </button>
+
+    <div id="chatwidget-window" class="absolute bottom-20 right-0 w-80 sm:w-96 bg-white shadow-2xl rounded-3xl overflow-hidden hidden flex-col border border-gray-200">
+        <div class="bg-primary p-6 text-white flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold leading-none">Green Assistant</h4>
+                    <span class="text-xs text-white/70">AI-powered</span>
+                </div>
+            </div>
+            <button id="chatwidget-close" class="text-white hover:rotate-90 transition-transform">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        <div id="chatwidget-messages" class="h-80 p-6 overflow-y-auto bg-gray-50 space-y-4">
+            <div class="flex gap-2">
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-sm text-gray-700">
+                    Hello! How can I help you with Green Innova's sustainable energy solutions?
+                </div>
+            </div>
+        </div>
+        <div class="p-4 bg-white border-t border-gray-100 flex gap-2">
+            <input type="text" id="chatwidget-input" placeholder="Type your message..." class="flex-1 bg-gray-50 border-none rounded-full px-4 text-sm focus:ring-2 focus:ring-primary/50">
+            <button id="chatwidget-send" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center">
+                <i class="fas fa-paper-plane text-xs"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    // ----- DOM Elements -----
+    const toggle = document.getElementById('chatwidget-toggle');
+    const chatWindow = document.getElementById('chatwidget-window');
+    const closeBtn = document.getElementById('chatwidget-close');
+    const sendBtn = document.getElementById('chatwidget-send');
+    const input = document.getElementById('chatwidget-input');
+    const messagesContainer = document.getElementById('chatwidget-messages');
+
+    // ----- Polling State -----
+    let lastMessageId = null;          // the ID of the latest user message that still needs a reply
+    let pollInterval = null;          // setInterval handle
+    let isPolling = false;           // flag to avoid multiple intervals
+
+    // ----- Toggle Chat Window -----
+    toggle.addEventListener('click', function() {
+        chatWindow.classList.toggle('hidden');
+        chatWindow.classList.toggle('flex');
+
+        // When chat opens, start polling if we have a pending message
+        if (!chatWindow.classList.contains('hidden') && lastMessageId) {
+            startPolling();
+        }
+    });
+
+    // ----- Close Chat & Stop Polling -----
+    closeBtn.addEventListener('click', function() {
+        chatWindow.classList.add('hidden');
+        chatWindow.classList.remove('flex');
+        stopPolling();
+    });
+
+    // ----- Send Message -----
+    async function sendMessage() {
+        const msg = input.value.trim();
+        if (!msg) return;
+
+        // Display user message
+        appendMessage(msg, 'user');
+        input.value = '';
+
+        // Show typing indicator (optional, but nice)
+        const typingId = appendTypingIndicator();
+
+        try {
+            const csrfToken = getCookie('csrftoken');
+            const response = await fetch('/chat-api/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ message: msg })
+            });
+
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const data = await response.json();
+            removeTypingIndicator(typingId);
+
+            // If bot replied instantly, show it
+            if (data.reply) {
+                appendMessage(data.reply, 'bot');
+            }
+
+            // Update lastMessageId to this new message (so we poll for its reply)
+            if (data.message_id) {
+                lastMessageId = data.message_id;
+                // If chat is open, start/restart polling
+                if (!chatWindow.classList.contains('hidden')) {
+                    startPolling();
+                }
+            }
+
+        } catch (error) {
+            console.error('Chat API error:', error);
+            removeTypingIndicator(typingId);
+            appendMessage('Sorry, connection issue. Please try later.', 'bot');
+        }
+    }
+
+    // ----- Smart Polling -----
+    function startPolling() {
+        if (!lastMessageId) return;
+        if (pollInterval) clearInterval(pollInterval);
+        isPolling = true;
+        // Poll every 2 seconds – adjust this value as needed
+        pollInterval = setInterval(checkForReplies, 2000);
+    }
+
+    function stopPolling() {
+        if (pollInterval) {
+            clearInterval(pollInterval);
+            pollInterval = null;
+        }
+        isPolling = false;
+    }
+
+    async function checkForReplies() {
+        // Don't poll if chat is hidden or no pending message
+        if (chatWindow.classList.contains('hidden') || !lastMessageId) {
+            stopPolling();
+            return;
+        }
+
+        try {
+            const response = await fetch(`/chat-api/replies/?last_id=${lastMessageId}`);
+            if (!response.ok) throw new Error(`Polling error: ${response.status}`);
+
+            const data = await response.json();
+            if (data.reply) {
+                appendMessage(data.reply, 'bot');
+                // Stop polling – we got the reply!
+                stopPolling();
+                // Clear lastMessageId so we don't keep checking this message
+                lastMessageId = null;
+            }
+        } catch (error) {
+            console.error('Polling error:', error);
+            // Optional: stop polling after too many errors, or keep trying
+        }
+    }
+
+    // ----- UI Helpers (unchanged, but with XSS protection) -----
+    function appendMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `flex gap-2 ${sender === 'user' ? 'justify-end' : ''}`;
+        div.innerHTML = `
+            <div class="bg-${sender === 'user' ? 'primary text-white' : 'white'} p-3 rounded-2xl ${sender === 'user' ? 'rounded-tr-none' : 'rounded-tl-none'} shadow-sm text-sm text-${sender === 'user' ? 'white' : 'gray-700'} max-w-[80%]">
+                ${escapeHTML(text)}
+            </div>
+        `;
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function appendTypingIndicator() {
+        const id = 'typing-' + Date.now();
+        const div = document.createElement('div');
+        div.id = id;
+        div.className = 'flex gap-2';
+        div.innerHTML = `
+            <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-sm text-gray-500">
+                <i class="fas fa-circle-notch fa-spin"></i> typing...
+            </div>
+        `;
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        return id;
+    }
+
+    function removeTypingIndicator(id) {
+        const el = document.getElementById(id);
+        if (el) el.remove();
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function escapeHTML(unsafe) {
+        if (!unsafe) return '';
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // ----- Event Listeners -----
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+});
+</script>

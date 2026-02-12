@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ article.title }} | Green Innova News{% endblock %}
+
+{% block meta_description %}{{ article.summary }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .article-content h2, .article-content h3 {
+        @apply font-bold text-charcoal uppercase tracking-tight mt-12 mb-6;
+    }
+    .article-content h2 {
+        @apply text-3xl border-l-4 border-primary pl-4;
+    }
+    .article-content h3 {
+        @apply text-xl;
+    }
+    .article-content p {
+        @apply text-gray-600 leading-relaxed mb-6;
+    }
+    .article-content ul, .article-content ol {
+        @apply mb-6 pl-6 text-gray-600;
+    }
+    .article-content li {
+        @apply mb-2;
+    }
+    .article-content blockquote {
+        @apply bg-gray-50 border-l-4 border-primary p-6 italic text-gray-700 my-8;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Technical ticker (same as list page) -->
+    <div class="pt-40 bg-charcoal text-primary border-y border-primary/20 py-2 overflow-hidden whitespace-nowrap relative">
+        <div class="inline-block animate-marquee lowercase font-mono text-[10px] tracking-[0.2em] font-bold">
+            <span class="mx-8">[ ARTICLE_ID: {{ article.transaction_id }} ]</span>
+            <span class="mx-8">[ PUBLISHED: {{ article.published_date|date:"d M Y" }} ]</span>
+            <span class="mx-8">[ CATEGORY: {{ article.get_category_display|upper }} ]</span>
+        </div>
+        <div class="inline-block animate-marquee lowercase font-mono text-[10px] tracking-[0.2em] font-bold">
+            <span class="mx-8">[ ARTICLE_ID: {{ article.transaction_id }} ]</span>
+            <span class="mx-8">[ PUBLISHED: {{ article.published_date|date:"d M Y" }} ]</span>
+            <span class="mx-8">[ CATEGORY: {{ article.get_category_display|upper }} ]</span>
+        </div>
+    </div>
+
+    <!-- Hero section -->
+    <section class="relative h-[50vh] min-h-[400px] w-full overflow-hidden">
+        <img src="{% if article.image %}{{ article.image.url }}{% else %}https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80{% endif %}" 
+             alt="{{ article.title }}" 
+             class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/60 to-transparent"></div>
+        
+        <div class="relative z-10 container mx-auto px-4 lg:px-12 xl:px-24 h-full flex items-end pb-16">
+            <div class="max-w-4xl text-white">
+                <div class="flex items-center gap-4 mb-4">
+                    <span class="bg-primary/90 backdrop-blur-md text-white text-[10px] font-bold uppercase px-4 py-1.5 rounded-sm">
+                        {{ article.get_category_display }}
+                    </span>
+                    <span class="text-white/60 font-mono text-[10px]">{{ article.transaction_id }}</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight mb-6 leading-tight">
+                    {{ article.title }}
+                </h1>
+                <div class="flex items-center gap-6 text-sm">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-calendar-alt text-primary"></i>
+                        {{ article.published_date|date:"F d, Y" }}
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-clock text-primary"></i>
+                        {{ article.read_time }} min read
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article content -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+            <div class="grid lg:grid-cols-3 gap-16">
+                <!-- Main content -->
+                <div class="lg:col-span-2">
+                    <div class="prose max-w-none article-content">
+                        {{ article.content|safe }}
+                    </div>
+                    
+                    <!-- Back to news button -->
+                    <div class="pt-16 mt-12 border-t border-gray-200">
+                        <a href="{% url 'news' %}" 
+                           class="inline-flex items-center gap-3 text-charcoal hover:text-primary transition-colors group">
+                            <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                            <span class="font-bold uppercase tracking-wider">Back to Bulletin</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="space-y-8">
+                    <!-- Article metadata card -->
+                    <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
+                        <h3 class="text-lg font-bold text-charcoal uppercase mb-6 flex items-center gap-2">
+                            <i class="fas fa-info-circle text-primary"></i> Dossier Metadata
+                        </h3>
+                        <dl class="space-y-4">
+                            <div class="flex justify-between py-2 border-b border-gray-200 last:border-0">
+                                <dt class="text-gray-600 text-sm">Reference</dt>
+                                <dd class="font-mono font-bold">{{ article.transaction_id }}</dd>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-200 last:border-0">
+                                <dt class="text-gray-600 text-sm">Category</dt>
+                                <dd class="font-mono font-bold">{{ article.get_category_display }}</dd>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-200 last:border-0">
+                                <dt class="text-gray-600 text-sm">Published</dt>
+                                <dd class="font-mono font-bold">{{ article.published_date|date:"M d, Y" }}</dd>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-200 last:border-0">
+                                <dt class="text-gray-600 text-sm">Reading Time</dt>
+                                <dd class="font-mono font-bold">{{ article.read_time }} min</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    
+                    <!-- Image caption if exists -->
+                    {% if article.image_caption %}
+                    <div class="bg-primary/5 p-6 rounded-2xl border border-primary/20">
+                        <p class="text-sm text-gray-600 italic">
+                            <i class="fas fa-camera text-primary mr-2"></i>
+                            {{ article.image_caption }}
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+        display: inline-block;
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}

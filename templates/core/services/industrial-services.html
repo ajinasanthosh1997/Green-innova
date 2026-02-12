@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Industrial Services | Green Innova Home{% endblock %}
+
+
+{% block extra_css %}
+<style>
+    /* Industrial Services specific styles */
+    .industrial-services-page .floating-subnav {
+        position: fixed;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 100px;
+        padding: 12px 24px;
+        z-index: 40;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .industrial-services-page .floating-subnav a {
+        padding: 8px 20px;
+        border-radius: 100px;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #666;
+        transition: all 0.3s ease;
+    }
+    
+    .industrial-services-page .floating-subnav a:hover,
+    .industrial-services-page .floating-subnav a.active {
+        background: #10B981;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- SERVICE MENU BAR (Sub-navigation) -->
+    <div id="service-subnav" class="floating-subnav hidden md:flex items-center gap-1">
+        <a href="{% url 'renewable_energy' %}">Renewable</a>
+        <a href="{% url 'energy_efficiency' %}">Efficiency</a>
+        <a href="{% url 'building_construction' %}">Construction</a>
+        <a href="{% url 'industrial_services' %}" class="active">Industrial</a>
+        <a href="{% url 'academy' %}">Academy</a>
+    </div>
+
+    <main class="pt-24">
+        <!-- SERVICE HERO -->
+        <section class="py-20 relative overflow-hidden bg-charcoal text-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1 animate-fade-in-up">
+                    <span class="text-primary font-bold uppercase tracking-widest text-sm mb-4 block">Industrial Service</span>
+                    <h1 class="text-5xl font-bold mb-6 italic">Precision Industrial <span class="text-primary italic">& Utilities</span></h1>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        High-performance engineering for complex industrial systems. We specialize in steam optimization, heat recovery, and digital sustainability management for the modern enterprise.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#services" class="bg-primary text-charcoal px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform">Explore Services</a>
+                    </div>
+                </div>
+                <div class="flex-1 w-full flex justify-center">
+                    <div class="w-full max-w-lg aspect-square bg-gradient-to-br from-primary/10 to-blue-500/10 rounded-full flex items-center justify-center relative">
+                        <i class="fas fa-industry text-9xl text-primary animate-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUB-SERVICES GRID -->
+        <section id="services" class="py-24 bg-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+                <div class="text-center max-w-3xl mx-auto mb-20">
+                    <h2 class="text-4xl font-bold italic mb-6">Industrial <span class="text-primary text-5xl italic">Optimization</span> Suite</h2>
+                    <p class="text-gray-500 text-lg italic">Robust solutions designed for the rigors of heavy industry and mission-critical utilities.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Steam Engineering -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-wind text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Steam Engineering</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Optimization of boiler systems, trap management, and distribution networks for maximum thermal efficiency.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Thermal Max</span>
+                    </div>
+
+                    <!-- Heat Recovery -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-retweet text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Heat Recovery</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Capture and repurpose of waste heat from industrial processes to lower overall fuel consumption.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Zero Waste goal</span>
+                    </div>
+
+                    <!-- Sampling Systems -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-flask text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Sampling Systems</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Automated and manual sampling solutions for chemical, water, and steam quality control.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Precision QC</span>
+                    </div>
+
+                    <!-- Calibration Services -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-compass text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Calibration Services</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">NIST-traceable calibration for pressure, temperature, and flow instrumentation.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Certified Accuracy</span>
+                    </div>
+
+                    <!-- Sustainability Software -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-laptop-code text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Sustainability Software</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Digital dashboards for ESG reporting and industrial carbon footprint tracking.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Digital ESG</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Industrial Services page specific JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add animation to service cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards
+        document.querySelectorAll('.bg-gray-50.rounded-\\[2rem\\]').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+
+        // Add hover effect to service cards
+        const serviceCards = document.querySelectorAll('.bg-gray-50.rounded-\\[2rem\\]');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.fa-2xl');
+                if(icon) {
+                    icon.style.transform = 'scale(1.1)';
+                    icon.style.transition = 'transform 0.3s ease';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.fa-2xl');
+                if(icon) {
+                    icon.style.transform = 'scale(1)';
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

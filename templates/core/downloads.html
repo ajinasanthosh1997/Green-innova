@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Technical Downloads | Green Innova{% endblock %}
+
+{% block content %}
+<main class="pt-32 pb-20">
+    <!-- HERO SECTION -->
+    <section class="relative py-20 bg-primary text-white overflow-hidden">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10">
+            <div class="max-w-3xl">
+                <span class="inline-block px-4 py-1 rounded-full bg-white/20 text-white font-bold text-sm uppercase tracking-widest mb-6 border border-white/30 italic">Resource Hub</span>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 italic">Technical <span class="text-charcoal/90">Downloads</span></h1>
+                <p class="text-xl text-white/90 max-w-2xl leading-relaxed">
+                    Access our latest corporate brochures, technical specifications, and compliance reports to understand the full depth of Green Innova's engineering capabilities.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOADS SECTION -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+            {% for category in categories %}
+                {% with items=category.active_items %}
+                    {% if items %}
+                        <!-- Category Header -->
+                        <div class="mb-16 {% if not forloop.first %}mt-20{% endif %}">
+                            <h2 class="text-3xl font-bold italic mb-8 flex items-center">
+                                {% if category.icon %}
+                                    <i class="{{ category.icon }} mr-4"></i>
+                                {% else %}
+                                    <i class="fas fa-download text-primary mr-4"></i>
+                                {% endif %}
+                                {{ category.name }}
+                            </h2>
+
+                            <!-- Dynamic Layout -->
+                            {% if category.layout == 'grid_3_cols' %}
+                                <!-- 3‑Column Grid for Brochures -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {% for item in items %}
+                                        <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group">
+                                            <h4 class="text-xl font-bold mb-2">{{ item.title }}</h4>
+                                            <p class="text-gray-500 text-sm mb-6 uppercase tracking-wider font-bold">
+                                                PDF • {{ item.file_size }}
+                                                {% if item.version %} • {{ item.version }}{% endif %}
+                                            </p>
+                                            <a href="{{ item.file.url }}" 
+                                               download
+                                               class="flex items-center justify-between w-full p-4 bg-gray-50 rounded-2xl group-hover:bg-primary group-hover:text-white transition-all"
+                                               data-title="{{ item.title }}">
+                                                <span class="font-bold">Download</span>
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            {% elif category.layout == 'grid_2_cols_large' %}
+                                <!-- 2‑Column Large Cards for Technical Specs -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {% for item in items %}
+                                        {% if forloop.counter0|divisibleby:2 %}
+                                            <!-- Dark Card -->
+                                            <div class="p-8 bg-charcoal rounded-[2.5rem] text-white group cursor-pointer hover:bg-charcoal/90 transition-all border border-white/5">
+                                                <div class="flex justify-between items-start mb-6">
+                                                    <i class="{{ category.icon|default:'fas fa-microchip' }} text-primary text-3xl"></i>
+                                                    {% if item.version %}
+                                                        <span class="text-[10px] font-bold uppercase py-1 px-3 bg-primary/20 text-primary rounded-full border border-primary/30">{{ item.version }}</span>
+                                                    {% endif %}
+                                                </div>
+                                                <h3 class="text-2xl font-bold mb-4">{{ item.title }}</h3>
+                                                <p class="text-gray-400 mb-8 leading-relaxed">{{ item.description }}</p>
+                                                <div class="flex items-center justify-between font-bold text-sm tracking-widest uppercase">
+                                                    <a href="{{ item.file.url }}" download class="text-primary hover:underline">View Datasheet</a>
+                                                    <span class="text-gray-600">{{ item.file_size }}</span>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <!-- Light Card -->
+                                            <div class="p-8 bg-white rounded-[2.5rem] border border-gray-200 group cursor-pointer hover:border-primary/50 transition-all shadow-sm">
+                                                <div class="flex justify-between items-start mb-6">
+                                                    <i class="{{ category.icon|default:'fas fa-industry' }} text-charcoal text-3xl"></i>
+                                                    {% if item.version %}
+                                                        <span class="text-[10px] font-bold uppercase py-1 px-3 bg-gray-100 text-charcoal rounded-full border border-gray-200">{{ item.version }}</span>
+                                                    {% endif %}
+                                                </div>
+                                                <h3 class="text-2xl font-bold mb-4 italic">{{ item.title }}</h3>
+                                                <p class="text-gray-500 mb-8 leading-relaxed">{{ item.description }}</p>
+                                                <div class="flex items-center justify-between font-bold text-sm tracking-widest uppercase">
+                                                    <a href="{{ item.file.url }}" download class="text-charcoal hover:text-primary transition-colors">Access Portal</a>
+                                                    <span class="text-gray-400">{{ item.file_size }}</span>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            {% empty %}
+                <div class="text-center py-20">
+                    <div class="text-4xl text-gray-300 mb-4">No downloads available</div>
+                    <p class="text-gray-500">Check back soon for technical resources.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Download tracking (optional)
+        const downloadLinks = document.querySelectorAll('a[download]');
+        downloadLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const fileName = this.getAttribute('data-title') || this.closest('.bg-white')?.querySelector('h4')?.textContent || 'Document';
+                
+                // Simulate download start (optional visual feedback)
+                const originalHTML = this.innerHTML;
+                this.innerHTML = '<span class="font-bold">Downloading...</span> <i class="fas fa-spinner fa-spin"></i>';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    // You can log to analytics here
+                    console.log(`Download started: ${fileName}`);
+                }, 300);
+            });
+        });
+        
+        // Hover animation for cards (already handled via CSS, but we keep the effect)
+        const downloadCards = document.querySelectorAll('.bg-white.p-6.rounded-3xl');
+        downloadCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    });
+</script>
+{% endblock %}

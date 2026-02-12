@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Green Innova Home{% endblock %}
+
+{% block content %}
+<main class="pt-40">
+    <section class="container mx-auto px-4 lg:px-12 xl:px-24 py-16 grid lg:grid-cols-2 gap-20">
+        <!-- Contact Info -->
+        <div class="space-y-12 animate-fade-in-up">
+            <div>
+                <h1 class="text-5xl font-bold text-charcoal mb-6">Let's Build a <span class="text-primary">Greener</span> World Together</h1>
+                <p class="text-gray-500 text-lg leading-relaxed">Have a question about our services or want to start a project? Reach out to us today.</p>
+            </div>
+            <div class="space-y-8">
+                <div class="flex items-start gap-6">
+                    <div class="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fas fa-map-marker-alt text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xl mb-1">Our Location</h4>
+                        <p class="text-gray-500">{{ contact_address }}</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6">
+                    <div class="w-14 h-14 bg-blue-500 text-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fas fa-phone-alt text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xl mb-1">Call Us</h4>
+                        <p class="text-gray-500">{{ contact_phone }}</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6">
+                    <div class="w-14 h-14 bg-yellow-500 text-white rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xl mb-1">Email Us</h4>
+                        <p class="text-gray-500">{{ contact_email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white p-10 rounded-[40px] shadow-2xl border border-gray-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-12 translate-x-12"></div>
+            
+            <h3 class="text-3xl font-bold mb-8">Send Us a Message</h3>
+            <form id="contact-form" class="space-y-6 relative z-10">
+    {% csrf_token %}
+    <div class="grid md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+            <label class="text-sm font-bold text-gray-700">Full Name</label>
+            <input type="text" name="name" required 
+                   class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary/30 transition-all font-medium" 
+                   placeholder="E.g. John Smith">
+        </div>
+        <div class="space-y-2">
+            <label class="text-sm font-bold text-gray-700">Email</label>
+            <input type="email" name="email" required 
+                   class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary/30 transition-all font-medium" 
+                   placeholder="john@example.com">
+        </div>
+    </div>
+
+    <!-- ✅ NEW: Phone field (optional) -->
+    <div class="space-y-2">
+        <label class="text-sm font-bold text-gray-700">Phone (optional)</label>
+        <input type="tel" name="phone" 
+               class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary/30 transition-all font-medium" 
+               placeholder="+1 (234) 567 890">
+    </div>
+
+    <div class="space-y-2">
+        <label class="text-sm font-bold text-gray-700">Message</label>
+        <textarea name="message" rows="5" required 
+                  class="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:ring-2 focus:ring-primary/30 transition-all font-medium resize-none" 
+                  placeholder="How can we help you?"></textarea>
+    </div>
+
+    <button type="submit" 
+            class="w-full bg-primary text-white py-5 rounded-2xl font-bold text-lg hover:bg-primary-dark transition-all shadow-xl hover:-translate-y-1">
+        Send Message &rarr;
+    </button>
+</form>
+
+<!-- ✅ Feedback container -->
+<div id="form-feedback" class="hidden mt-6 p-4 rounded-xl text-center font-bold"></div>
+        </div>
+    </section>
+
+ <!-- ========== 🗺️ ADDRESS‑BASED MAP – AUTO UPDATES FROM ADMIN ========== -->
+<section class="container mx-auto px-4 lg:px-12 xl:px-24 mb-24">
+    <div class="w-full h-[500px] bg-gray-100 rounded-[40px] relative overflow-hidden border border-gray-200 shadow-xl">
+        {% if contact_address %}
+            {# ✅ Google Maps embed using the address – works every time #}
+            <iframe 
+                class="absolute inset-0 w-full h-full"
+                frameborder="0"
+                style="border:0;"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q={{ contact_address|urlencode }}&output=embed"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+
+            {# 📍 Elegant overlay #}
+            <div class="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-80 bg-white/95 backdrop-blur-md px-6 py-5 rounded-2xl shadow-2xl border border-white/50">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-map-pin text-primary text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-charcoal text-lg mb-1">Our Location</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-2">{{ contact_address|linebreaksbr }}</p>
+                        <a href="https://www.google.com/maps?q={{ contact_address|urlencode }}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors">
+                            Open in Google Maps
+                            <i class="fas fa-external-link-alt text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            {# 🚫 No address configured – show friendly placeholder #}
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center px-6">
+                    <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-map-marked-alt text-4xl text-gray-400"></i>
+                    </div>
+                    <p class="text-gray-500 font-bold text-lg mb-2">Map Not Configured</p>
+                    <p class="text-gray-400 text-sm max-w-sm">
+                        Please add an address in the 
+                        <span class="font-semibold text-primary">Site Configuration</span> admin panel.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    const feedback = document.getElementById('form-feedback');
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Clear previous feedback
+        feedback.className = 'hidden mt-6 p-4 rounded-xl text-center font-bold';
+        feedback.textContent = '';
+
+        const formData = new FormData(form);
+        // No 'service' field – this is a general contact message
+
+        try {
+            const response = await fetch('/api/contact/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                    'Accept': 'application/json',
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                // ✅ Success
+                feedback.classList.remove('hidden', 'bg-red-100', 'text-red-600');
+                feedback.classList.add('bg-green-100', 'text-green-600');
+                feedback.textContent = result.message;
+                form.reset();
+            } else {
+                // ❌ Validation or server error
+                let errorMsg = result.message || 'Please correct the errors below.';
+                if (result.data) {
+                    const firstField = Object.keys(result.data)[0];
+                    if (firstField) {
+                        errorMsg = `${firstField}: ${result.data[firstField]}`;
+                    }
+                }
+                feedback.classList.remove('hidden', 'bg-green-100', 'text-green-600');
+                feedback.classList.add('bg-red-100', 'text-red-600');
+                feedback.textContent = errorMsg;
+            }
+        } catch (error) {
+            feedback.classList.remove('hidden', 'bg-green-100', 'text-green-600');
+            feedback.classList.add('bg-red-100', 'text-red-600');
+            feedback.textContent = 'Network error. Please try again.';
+        }
+    });
+});
+</script>
+{% endblock %}

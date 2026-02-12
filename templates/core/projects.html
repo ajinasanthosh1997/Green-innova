@@ -1,0 +1,601 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Projects | Green Innova Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .project-card {
+        transition: all 0.3s ease;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .project-card img {
+        transition: transform 0.7s ease, opacity 0.7s ease;
+    }
+    
+    .project-card:hover img {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    
+    .filter-btn.active {
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+    }
+    
+    /* Layout-specific styles */
+    .project-large-wide {
+        grid-column: span 8 / span 8;
+    }
+    
+    .project-tall {
+        grid-column: span 4 / span 4;
+    }
+    
+    .project-square {
+        grid-column: span 5 / span 5;
+    }
+    
+    .project-wide {
+        grid-column: span 7 / span 7;
+    }
+    
+    .project-medium {
+        grid-column: span 6 / span 6;
+    }
+    
+    @media (max-width: 768px) {
+        .project-large-wide,
+        .project-tall,
+        .project-square,
+        .project-wide,
+        .project-medium {
+            grid-column: span 12 / span 12;
+        }
+    }
+    
+    /* Image gallery modal styles */
+    .image-gallery {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .gallery-content {
+        max-width: 90%;
+        max-height: 90%;
+        position: relative;
+    }
+    
+    .gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        padding: 15px;
+        cursor: pointer;
+        font-size: 24px;
+        backdrop-filter: blur(10px);
+    }
+    
+    .prev { left: 20px; }
+    .next { right: 20px; }
+    
+    .gallery-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+    }
+    
+    .gallery-thumbnails {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.3s;
+    }
+    
+    .thumbnail.active {
+        opacity: 1;
+        border: 2px solid #10b981;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <!-- HEADER SECTION -->
+        <section class="container mx-auto px-4 lg:px-12 xl:px-24 pt-32 pb-12 text-center relative overflow-hidden">
+            <!-- Technical Grid Background -->
+            <div class="absolute inset-0 opacity-5 pointer-events-none">
+                <div class="absolute inset-0" style="background-image: radial-gradient(circle, #34D399 1px, transparent 1px); background-size: 30px 30px;"></div>
+            </div>
+            
+            <div class="relative z-10">
+                <span class="text-primary font-bold tracking-[0.3em] uppercase text-sm mb-4 block">Engineered Excellence</span>
+                <h1 class="text-6xl md:text-7xl font-bold text-charcoal mb-6 uppercase tracking-tight">Project <span class="text-primary">Showcase</span></h1>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">A technical catalog of our sustainable energy deployments and high-precision construction projects.</p>
+            </div>
+        </section>
+
+        <!-- FILTERS -->
+        <section class="container mx-auto px-4 lg:px-12 xl:px-24 mb-16">
+            <div class="flex flex-wrap justify-center gap-2 p-2 bg-gray-100 rounded-2xl w-fit mx-auto border border-gray-200 shadow-inner">
+                <button class="filter-btn active px-8 py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition-all bg-white text-primary shadow-sm border border-primary/20" data-filter="all">Total Archive</button>
+                <button class="filter-btn px-8 py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition-all text-gray-400 hover:text-charcoal hover:bg-gray-50" data-filter="residential">Residential</button>
+                <button class="filter-btn px-8 py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition-all text-gray-400 hover:text-charcoal hover:bg-gray-50" data-filter="commercial">Commercial</button>
+                <button class="filter-btn px-8 py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition-all text-gray-400 hover:text-charcoal hover:bg-gray-50" data-filter="industrial">Industrial</button>
+            </div>
+        </section>
+
+        <!-- PROJECTS GRID (Dynamic) -->
+        <section class="container mx-auto px-4 lg:px-12 xl:px-24 pb-24">
+            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+                {% for project in projects %}
+                <a href="{% url 'project_detail' slug=project.slug %}" class="project-card group relative project-{{ project.layout }} {% if forloop.counter == 3 and project.layout == 'square' %}md:mt-12{% endif %}" data-category="{{ project.category }}">
+                    <div class="relative overflow-hidden rounded-2xl {% if project.layout == 'large_wide' %}aspect-[16/9] md:aspect-auto md:h-[500px]{% elif project.layout == 'tall' %}aspect-[4/5]{% elif project.layout == 'square' %}aspect-square{% else %}aspect-[16/9]{% endif %} bg-charcoal border border-white/10">
+                        
+                        <!-- Project Image with Gallery Toggle -->
+                        <div class="relative w-full h-full">
+                            <img src="{{ project.main_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700">
+                            
+                            <!-- Gallery Button (only if there are additional images) -->
+                            {% if project.additional_images %}
+                            <button class="absolute top-4 right-4 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-all z-10 gallery-toggle" 
+                                    data-project-id="{{ project.id }}"
+                                    data-project-title="{{ project.title }}">
+                                <i class="fas fa-images"></i>
+                            </button>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Project Content based on layout -->
+                        {% if project.layout == 'large_wide' %}
+                        <!-- Large Wide Layout -->
+                        <div class="absolute inset-0 p-8 flex flex-col justify-between pointer-events-none">
+                            <div class="flex justify-between items-start">
+                                <div class="bg-primary/90 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm backdrop-blur-md border border-white/20">
+                                    REF #GI-{{ project.date_completed|date:"Y" }}-{{ project.id|stringformat:"03d" }}
+                                </div>
+                                <div class="text-white/40 text-xs font-mono">
+                                    [ SCAN ACTIVE ]
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="w-12 h-0.5 bg-primary group-hover:w-24 transition-all duration-500"></div>
+                                <h3 class="text-3xl md:text-4xl font-bold text-white uppercase tracking-tight">{{ project.title }}</h3>
+                                
+                                <!-- Technical Data Overlay -->
+                                <div class="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0 text-white">
+                                    <div class="space-y-1">
+                                        <span class="text-[10px] uppercase text-white/50 block">Capacity</span>
+                                        <span class="text-sm font-bold">{{ project.capacity|default:"150kW Solar" }}</span>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="text-[10px] uppercase text-white/50 block">Logic</span>
+                                        <span class="text-sm font-bold">Smart Hybrid</span>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <span class="text-[10px] uppercase text-white/50 block">Location</span>
+                                        <span class="text-sm font-bold">{{ project.location }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% elif project.layout == 'tall' %}
+                        <!-- Tall Layout -->
+                        <div class="absolute inset-0 p-6 flex flex-col justify-between pointer-events-none">
+                            <div class="bg-charcoal/80 text-primary self-start text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-sm border border-primary/30">
+                                DATA NODE: {{ project.id|add:40 }}
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <h3 class="text-2xl font-bold text-white uppercase tracking-tight">{{ project.title }}</h3>
+                                <p class="text-xs text-white/60 font-mono">{{ project.capacity|default:"Commercial Installation" }}</p>
+                                <div class="pt-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                    <div class="inline-flex items-center gap-2 text-[10px] text-primary uppercase font-bold tracking-widest">
+                                        <span>View System Specs</span>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% elif project.layout == 'square' %}
+                        <!-- Square Layout -->
+                        <div class="absolute inset-0 p-6 flex flex-col justify-between pointer-events-none text-white text-center">
+                             <div class="border-t border-l border-primary w-8 h-8 self-start"></div>
+                             <div>
+                                <h3 class="text-2xl font-bold uppercase tracking-widest">{{ project.title }}</h3>
+                                <div class="text-[10px] font-mono text-white/40 mt-2">SYS_LOAD: {{ project.energy_savings }}% | SAVINGS: {{ project.energy_savings }}%</div>
+                             </div>
+                             <div class="border-b border-r border-primary w-8 h-8 self-end"></div>
+                        </div>
+                        
+                        {% elif project.layout == 'wide' %}
+                        <!-- Wide Layout -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-charcoal/90 to-transparent p-10 flex flex-col justify-center">
+                            <span class="text-primary font-bold text-xs tracking-widest uppercase mb-4">{{ project.date_completed|date:"F Y" }}</span>
+                            <h3 class="text-4xl font-bold text-white uppercase mb-4">{{ project.title }}</h3>
+                            <div class="max-w-md text-white/60 text-sm mb-8">
+                                {{ project.short_description }}
+                            </div>
+                            {% if project.panels_installed or project.homes_powered %}
+                            <div class="flex gap-8">
+                                {% if project.panels_installed %}
+                                <div>
+                                    <div class="text-primary font-bold text-xl">{{ project.panels_installed }}</div>
+                                    <div class="text-[10px] uppercase tracking-widest text-white/40">Panels Installed</div>
+                                </div>
+                                {% endif %}
+                                {% if project.homes_powered %}
+                                <div>
+                                    <div class="text-primary font-bold text-xl">{{ project.homes_powered }}</div>
+                                    <div class="text-[10px] uppercase tracking-widest text-white/40">Homes Powered</div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        {% else %}
+                        <!-- Medium/Default Layout -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 to-transparent p-8 flex flex-col justify-end">
+                            <h3 class="text-2xl font-bold text-white uppercase mb-2">{{ project.title }}</h3>
+                            <p class="text-white/60 text-sm mb-4">{{ project.short_description }}</p>
+                            {% if project.energy_savings %}
+                            <div class="text-[10px] text-primary font-bold uppercase tracking-widest">
+                                {{ project.energy_savings }}% Energy Savings
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </a>
+                {% empty %}
+                <div class="md:col-span-12 text-center py-20">
+                    <div class="text-4xl text-gray-300 mb-4">No projects available</div>
+                    <p class="text-gray-500">Check back soon for our latest projects.</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if projects.has_other_pages %}
+            <div class="mt-12 flex justify-center">
+                <nav class="inline-flex rounded-md shadow-sm">
+                    {% if projects.has_previous %}
+                    <a href="?page={{ projects.previous_page_number }}" class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Previous
+                    </a>
+                    {% endif %}
+                    
+                    {% for num in projects.paginator.page_range %}
+                        {% if projects.number == num %}
+                        <span class="relative inline-flex items-center px-4 py-2 border border-primary bg-primary text-white text-sm font-medium">
+                            {{ num }}
+                        </span>
+                        {% elif num > projects.number|add:'-3' and num < projects.number|add:'3' %}
+                        <a href="?page={{ num }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            {{ num }}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if projects.has_next %}
+                    <a href="?page={{ projects.next_page_number }}" class="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Next
+                    </a>
+                    {% endif %}
+                </nav>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Image Gallery Modal (hidden by default) -->
+        <div id="image-gallery" class="image-gallery hidden">
+            <button class="gallery-close" id="gallery-close">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="gallery-content">
+                <img id="gallery-main-image" src="" alt="" class="max-w-full max-h-[70vh] object-contain">
+                
+                <div id="gallery-caption" class="text-white text-center mt-4 text-lg"></div>
+                
+                <div class="gallery-thumbnails" id="gallery-thumbnails">
+                    <!-- Thumbnails will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <button class="gallery-nav prev" id="gallery-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="gallery-nav next" id="gallery-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- STATISTICS SECTION (Dynamic) -->
+        <section class="py-20 bg-gray-50 border-t border-gray-200">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    {% for stat in project_stats %}
+                    <div class="space-y-2">
+                        <div class="text-5xl font-black text-primary">{{ stat.value }}</div>
+                        <div class="text-gray-600 text-sm uppercase tracking-widest font-bold">{{ stat.title }}</div>
+                        {% if stat.description %}
+                        <div class="text-gray-500 text-xs mt-1">{{ stat.description }}</div>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <!-- Default stats if none defined -->
+                    <div class="space-y-2">
+                        <div class="text-5xl font-black text-primary">500+</div>
+                        <div class="text-gray-600 text-sm uppercase tracking-widest font-bold">Projects Completed</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-5xl font-black text-primary">250MW</div>
+                        <div class="text-gray-600 text-sm uppercase tracking-widest font-bold">Clean Energy Installed</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-5xl font-black text-primary">85%</div>
+                        <div class="text-gray-600 text-sm uppercase tracking-widest font-bold">Avg. Energy Savings</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-5xl font-black text-primary">25+</div>
+                        <div class="text-gray-600 text-sm uppercase tracking-widest font-bold">Countries Served</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24 text-center">
+                <h2 class="text-4xl font-bold text-charcoal mb-6">Ready to Start Your Project?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mb-10 text-lg">Join hundreds of satisfied clients who have transformed their energy consumption with our sustainable solutions.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'contact' %}" class="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-dark transition-all shadow-xl hover:-translate-y-1">Get a Free Quote</a>
+                    <a href="{% url 'renewable_energy' %}" class="bg-white text-charcoal border border-gray-200 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 transition-all shadow-lg">Explore Services</a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Local Filter Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                
+                // Update active button
+                filterButtons.forEach(b => {
+                    b.classList.remove('active', 'bg-white', 'text-primary', 'shadow-sm', 'border-primary/20');
+                    b.classList.add('text-gray-400', 'hover:text-charcoal', 'hover:bg-gray-50');
+                });
+                btn.classList.add('active', 'bg-white', 'text-primary', 'shadow-sm', 'border-primary/20');
+                btn.classList.remove('text-gray-400', 'hover:text-charcoal', 'hover:bg-gray-50');
+
+                // Filter cards with animation
+                let visibleCount = 0;
+                projectCards.forEach((card, index) => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        // Show card with staggered animation
+                        setTimeout(() => {
+                            card.style.display = 'block';
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            
+                            requestAnimationFrame(() => {
+                                setTimeout(() => {
+                                    card.style.transition = 'all 0.5s ease';
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, 50);
+                            });
+                        }, visibleCount * 50);
+                        
+                        visibleCount++;
+                    } else {
+                        // Hide card with fade out
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Add scroll animation for project cards on initial load
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Initialize cards with hidden state
+        projectCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Image Gallery Functionality
+        const gallery = document.getElementById('image-gallery');
+        const galleryClose = document.getElementById('gallery-close');
+        const galleryPrev = document.getElementById('gallery-prev');
+        const galleryNext = document.getElementById('gallery-next');
+        const galleryMainImage = document.getElementById('gallery-main-image');
+        const galleryCaption = document.getElementById('gallery-caption');
+        const galleryThumbnails = document.getElementById('gallery-thumbnails');
+        
+        let currentGalleryImages = [];
+        let currentImageIndex = 0;
+        
+        // Store image data for each project
+        const projectImages = {};
+        
+        // Collect image data from data attributes
+        document.querySelectorAll('.gallery-toggle').forEach(button => {
+            const projectId = button.getAttribute('data-project-id');
+            const projectTitle = button.getAttribute('data-project-title');
+            
+            // Get main image URL
+            const projectCard = button.closest('.project-card');
+            const mainImage = projectCard.querySelector('img').src;
+            
+            projectImages[projectId] = {
+                title: projectTitle,
+                images: [{
+                    url: mainImage,
+                    caption: projectTitle
+                }]
+            };
+        });
+        
+        // Add event listeners to gallery buttons
+        document.querySelectorAll('.gallery-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                const projectId = this.getAttribute('data-project-id');
+                
+                // In a real implementation, you would fetch additional images via AJAX
+                // For now, we'll just use the main image
+                currentGalleryImages = projectImages[projectId].images;
+                currentImageIndex = 0;
+                
+                // Show gallery with first image
+                showGalleryImage(currentImageIndex);
+                gallery.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Gallery navigation
+        galleryClose.addEventListener('click', closeGallery);
+        galleryPrev.addEventListener('click', showPrevImage);
+        galleryNext.addEventListener('click', showNextImage);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!gallery.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeGallery();
+                if (e.key === 'ArrowLeft') showPrevImage();
+                if (e.key === 'ArrowRight') showNextImage();
+            }
+        });
+        
+        // Click outside to close
+        gallery.addEventListener('click', (e) => {
+            if (e.target === gallery) {
+                closeGallery();
+            }
+        });
+        
+        function showGalleryImage(index) {
+            if (currentGalleryImages.length === 0) return;
+            
+            const image = currentGalleryImages[index];
+            galleryMainImage.src = image.url;
+            galleryCaption.textContent = image.caption || '';
+            
+            // Update thumbnails
+            updateThumbnails();
+        }
+        
+        function updateThumbnails() {
+            galleryThumbnails.innerHTML = '';
+            
+            currentGalleryImages.forEach((image, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = image.url;
+                thumbnail.alt = image.caption || '';
+                thumbnail.classList.add('thumbnail');
+                
+                if (index === currentImageIndex) {
+                    thumbnail.classList.add('active');
+                }
+                
+                thumbnail.addEventListener('click', () => {
+                    currentImageIndex = index;
+                    showGalleryImage(currentImageIndex);
+                });
+                
+                galleryThumbnails.appendChild(thumbnail);
+            });
+        }
+        
+        function showPrevImage() {
+            if (currentGalleryImages.length === 0) return;
+            
+            currentImageIndex--;
+            if (currentImageIndex < 0) {
+                currentImageIndex = currentGalleryImages.length - 1;
+            }
+            showGalleryImage(currentImageIndex);
+        }
+        
+        function showNextImage() {
+            if (currentGalleryImages.length === 0) return;
+            
+            currentImageIndex++;
+            if (currentImageIndex >= currentGalleryImages.length) {
+                currentImageIndex = 0;
+            }
+            showGalleryImage(currentImageIndex);
+        }
+        
+        function closeGallery() {
+            gallery.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+</script>
+{% endblock %}

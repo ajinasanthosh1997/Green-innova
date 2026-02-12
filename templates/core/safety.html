@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Safety Standards | Green Innova{% endblock %}
+
+{% block content %}
+<main class="pt-32 pb-20">
+    <!-- HERO SECTION -->
+    <section class="relative py-20 bg-[#fef2f2] text-charcoal overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute right-0 top-0 w-1/3 h-full bg-red-500/5 blur-[100px] rounded-full"></div>
+        </div>
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10">
+            <div class="max-w-3xl">
+                <span class="inline-flex items-center px-4 py-1 rounded-full bg-red-100 text-red-600 font-bold text-sm uppercase tracking-widest mb-6 border border-red-200">
+                    <i class="fas fa-shield-alt mr-2"></i> Safety First
+                </span>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 italic">HSEQ <span class="text-red-600">& Safety</span> Standards</h1>
+                <p class="text-xl text-gray-600 max-w-2xl leading-relaxed">
+                    Precision engineering requires absolute safety. Our HSEQ protocols ensure every project is executed with zero compromise on human life and environmental protection.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SAFETY PILLARS -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <!-- Pillar 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-bold text-red-600 mb-2">Zero</div>
+                    <div class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Accident Goal</div>
+                    <p class="text-gray-600 text-sm">We maintain a rigorous culture aimed at zero lost-time incidents across all sites.</p>
+                </div>
+                <!-- Pillar 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-bold text-red-600 mb-2">100%</div>
+                    <div class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">PPE Compliance</div>
+                    <p class="text-gray-600 text-sm">Strict adherence to personal protective equipment standards at every stage.</p>
+                </div>
+                <!-- Pillar 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-bold text-red-600 mb-2">Active</div>
+                    <div class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Risk Audit</div>
+                    <p class="text-gray-600 text-sm">Daily site audits and risk assessments before work commencement.</p>
+                </div>
+                <!-- Pillar 4 -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                    <div class="text-3xl font-bold text-red-600 mb-2">Global</div>
+                    <div class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Standards</div>
+                    <p class="text-gray-600 text-sm">Aligned with ISO 45001 and local occupational health regulations.</p>
+                </div>
+            </div>
+
+            <!-- DETAILED PROTOCOLS -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <h2 class="text-3xl font-bold italic mb-8">Our Core Protocols</h2>
+                    
+                    <div class="flex items-start space-x-6 p-6 rounded-3xl bg-white shadow-sm border border-gray-100">
+                        <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-600">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Industrial Site Training</h4>
+                            <p class="text-gray-600">Every team member undergoes mandatory induction and high-risk task training before deployment.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-6 p-6 rounded-3xl bg-white shadow-sm border border-gray-100">
+                        <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-600">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Equipment Certification</h4>
+                            <p class="text-gray-600">Monthly inspection and calibration of all solar and construction machinery for optimal safety.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-6 p-6 rounded-3xl bg-white shadow-sm border border-gray-100">
+                        <div class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-600">
+                            <i class="fas fa-first-aid"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Emergency Response</h4>
+                            <p class="text-gray-600">Strategically located first-aid stations and trained emergency response crews at every active site.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-charcoal p-10 rounded-[3rem] text-white relative overflow-hidden">
+                    <i class="fas fa-quote-left text-primary/20 text-8xl absolute -top-4 -left-4"></i>
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-bold mb-6 italic text-primary">A Message from our Safety Officer</h3>
+                        <p class="text-xl leading-relaxed text-gray-400 mb-8 italic">
+                            "At Green Innova, safety isn't just a policy—it's the foundation of our engineering integrity. We believe that a successful project is one where every person returns home safe, every single day."
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-14 h-14 bg-gray-700 rounded-full"></div>
+                            <div>
+                                <div class="font-bold">Eng. Michael Chen</div>
+                                <div class="text-sm text-gray-500">Chief HSEQ Officer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20 bg-red-600 text-white">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24 text-center">
+            <h2 class="text-4xl font-bold mb-8 italic">Committed to Industrial Safety</h2>
+            <p class="text-xl mb-10 text-white/80 max-w-2xl mx-auto">Learn more about our specific safety certifications and technical HSEQ reports in our document center.</p>
+            <a href="{% url 'approvals' %}" class="inline-block bg-white text-red-600 px-10 py-4 rounded-full font-bold hover:bg-gray-100 transition-all shadow-xl">View Certifications</a>
+        </div>
+    </section>
+</main>
+{% endblock %}

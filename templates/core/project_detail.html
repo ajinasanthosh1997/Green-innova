@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }} | Green Innova Projects{% endblock %}
+
+{% block meta_description %}{{ project.short_description }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Technical specs styling */
+    .spec-card {
+        @apply bg-gray-50 p-6 rounded-xl border border-gray-200;
+    }
+    .spec-label {
+        @apply text-xs uppercase tracking-widest text-gray-500 font-bold;
+    }
+    .spec-value {
+        @apply text-2xl font-black text-charcoal;
+    }
+    
+    /* Gallery enhancements – reuse the same modal as on projects page */
+    .project-gallery-thumb {
+        @apply aspect-square object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary transition-all;
+    }
+    
+    /* Hero overlay */
+    .hero-overlay {
+        background: linear-gradient(to right, rgba(31,41,55,0.9) 0%, rgba(31,41,55,0.4) 100%);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- HERO SECTION with main image -->
+    <section class="relative h-[60vh] min-h-[500px] w-full overflow-hidden">
+        <img src="{{ project.main_image.url }}" 
+             alt="{{ project.title }}" 
+             class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 hero-overlay"></div>
+        
+        <div class="relative z-10 container mx-auto px-4 lg:px-12 xl:px-24 h-full flex items-center">
+            <div class="max-w-3xl text-white">
+                <div class="flex items-center gap-3 text-sm uppercase tracking-widest mb-4">
+                    <span class="bg-primary/90 backdrop-blur-md px-4 py-1.5 rounded-sm font-bold text-[10px]">
+                        REF #GI-{{ project.date_completed|date:"Y" }}-{{ project.id|stringformat:"03d" }}
+                    </span>
+                    <span class="bg-charcoal/80 backdrop-blur-md px-4 py-1.5 rounded-sm font-mono text-xs">
+                        {{ project.get_category_display }}
+                    </span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold uppercase tracking-tight mb-6">
+                    {{ project.title }}
+                </h1>
+                <p class="text-xl text-gray-200 max-w-2xl">
+                    {{ project.short_description }}
+                </p>
+            </div>
+        </div>
+        
+        <!-- Quick facts bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-lg border-t border-white/20">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24 py-4 flex flex-wrap gap-8 text-white">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-map-marker-alt text-primary"></i>
+                    <span class="text-sm font-mono">{{ project.location }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-calendar-alt text-primary"></i>
+                    <span class="text-sm font-mono">Completed: {{ project.date_completed|date:"F Y" }}</span>
+                </div>
+                {% if project.duration %}
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-clock text-primary"></i>
+                    <span class="text-sm font-mono">Duration: {{ project.duration }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECT DETAILS -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+            <div class="grid lg:grid-cols-3 gap-16">
+                <!-- Left column: main description -->
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="prose max-w-none text-gray-600">
+                        <h2 class="text-3xl font-bold text-charcoal mb-6 uppercase tracking-tight">
+                            Project <span class="text-primary">Overview</span>
+                        </h2>
+                        {{ project.full_description|safe }}
+                    </div>
+                    
+                    <!-- Technical specifications grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8">
+                        {% if project.capacity %}
+                        <div class="spec-card">
+                            <div class="spec-label">Capacity</div>
+                            <div class="spec-value">{{ project.capacity }}</div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.energy_savings %}
+                        <div class="spec-card">
+                            <div class="spec-label">Energy Savings</div>
+                            <div class="spec-value">{{ project.energy_savings }}%</div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.panels_installed %}
+                        <div class="spec-card">
+                            <div class="spec-label">Panels Installed</div>
+                            <div class="spec-value">{{ project.panels_installed|default:"—" }}</div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if project.homes_powered %}
+                        <div class="spec-card">
+                            <div class="spec-label">Homes Powered</div>
+                            <div class="spec-value">{{ project.homes_powered|default:"—" }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Back button -->
+                    <div class="pt-12">
+                        <a href="{% url 'projects' %}" 
+                           class="inline-flex items-center gap-3 text-charcoal hover:text-primary transition-colors group">
+                            <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                            <span class="font-bold uppercase tracking-wider">All Projects</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Right column: image gallery (if any) -->
+                <div class="space-y-8">
+                    <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200">
+                        <h3 class="text-xl font-bold text-charcoal uppercase mb-6 flex items-center gap-2">
+                            <i class="fas fa-images text-primary"></i> Project Gallery
+                        </h3>
+                        
+                        {% with images=project.project_images.all %}
+                            {% if images %}
+                                <div class="grid grid-cols-2 gap-3">
+                                    {% for img in images %}
+                                    <img src="{{ img.image.url }}" 
+                                         alt="{{ img.alt_text|default:img.caption|default:project.title }}"
+                                         class="project-gallery-thumb cursor-pointer hover:scale-105 transition-transform duration-300"
+                                         onclick="openGallery({{ forloop.counter0 }})"
+                                         data-index="{{ forloop.counter0 }}">
+                                    {% endfor %}
+                                </div>
+                                
+                                <!-- Hidden gallery data for JavaScript -->
+                                <div id="gallery-images" class="hidden">
+                                    {% for img in images %}
+                                    <div data-url="{{ img.image.url }}" 
+                                         data-caption="{{ img.caption|default:project.title }}"></div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="text-gray-500 text-sm">No additional images available.</p>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    
+                    <!-- Project stats card (optional) -->
+                    <div class="bg-primary/5 p-8 rounded-2xl border border-primary/20">
+                        <h3 class="text-xl font-bold text-charcoal uppercase mb-4">Technical Data</h3>
+                        <dl class="space-y-3">
+                            <div class="flex justify-between">
+                                <dt class="text-gray-600 text-sm">Category</dt>
+                                <dd class="font-mono font-bold">{{ project.get_category_display }}</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt class="text-gray-600 text-sm">Installation</dt>
+                                <dd class="font-mono font-bold">{{ project.date_completed|date:"Y" }}</dd>
+                            </div>
+                            {% if project.capacity %}
+                            <div class="flex justify-between">
+                                <dt class="text-gray-600 text-sm">System Size</dt>
+                                <dd class="font-mono font-bold">{{ project.capacity }}</dd>
+                            </div>
+                            {% endif %}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMAGE GALLERY MODAL (reuse the same structure as in projects.html) -->
+    <div id="image-gallery" class="fixed inset-0 bg-black/95 z-[100] hidden items-center justify-center">
+        <button onclick="closeGallery()" class="absolute top-6 right-6 text-white text-3xl hover:text-primary transition-colors z-20">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="relative max-w-6xl mx-auto px-4">
+            <img id="gallery-main" src="" alt="" class="max-h-[70vh] mx-auto object-contain">
+            
+            <div id="gallery-caption" class="text-white text-center mt-4 text-lg font-light"></div>
+            
+            <div class="flex justify-center gap-2 mt-6 overflow-x-auto py-2">
+                <div id="gallery-thumbnails" class="flex gap-2">
+                    <!-- Thumbnails injected via JS -->
+                </div>
+            </div>
+            
+            <button onclick="prevImage()" class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="nextImage()" class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Image gallery JavaScript – adapted from your projects.html
+    const galleryImages = [];
+    {% with images=project.project_images.all %}
+        {% for img in images %}
+            galleryImages.push({
+                url: "{{ img.image.url }}",
+                caption: "{{ img.caption|default:project.title }}"
+            });
+        {% endfor %}
+    {% endwith %}
+
+    let currentIndex = 0;
+    const galleryModal = document.getElementById('image-gallery');
+    const galleryMain = document.getElementById('gallery-main');
+    const galleryCaption = document.getElementById('gallery-caption');
+    const thumbnailsContainer = document.getElementById('gallery-thumbnails');
+
+    function openGallery(index) {
+        if (galleryImages.length === 0) return;
+        currentIndex = index;
+        updateGallery();
+        galleryModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeGallery() {
+        galleryModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    function updateGallery() {
+        const img = galleryImages[currentIndex];
+        galleryMain.src = img.url;
+        galleryCaption.textContent = img.caption;
+        
+        // Update thumbnails
+        thumbnailsContainer.innerHTML = '';
+        galleryImages.forEach((image, idx) => {
+            const thumb = document.createElement('img');
+            thumb.src = image.url;
+            thumb.alt = image.caption;
+            thumb.className = `w-16 h-16 object-cover rounded cursor-pointer border-2 ${idx === currentIndex ? 'border-primary' : 'border-transparent'} hover:border-primary/50 transition-all`;
+            thumb.onclick = () => {
+                currentIndex = idx;
+                updateGallery();
+            };
+            thumbnailsContainer.appendChild(thumb);
+        });
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        updateGallery();
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        updateGallery();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (galleryModal.style.display === 'flex') {
+            if (e.key === 'Escape') closeGallery();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        }
+    });
+
+    // Close modal when clicking outside the image container
+    galleryModal.addEventListener('click', (e) => {
+        if (e.target === galleryModal) closeGallery();
+    });
+</script>
+{% endblock %}

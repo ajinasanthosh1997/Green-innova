@@ -1,32 +1,38 @@
 from django.urls import path
 from .views import *
 
-urlpatterns = [
-    # Contact Messages
-    path('contact-messages/', ContactMessageListCreate.as_view(), name='contact-message-list'),
-    path('contact-messages/<int:pk>/', ContactMessageRetrieveUpdateDestroy.as_view(), name='contact-message-detail'),
-    
-    # Gallery Categories
-    path('gallery-categories/', CategoryListCreate.as_view(), name='gallery-category-list'),
-    path('gallery-categories/<int:pk>/', CategoryRetrieveUpdateDestroy.as_view(), name='gallery-category-detail'),
-    
-    # Gallery Items
-    path('gallery-items/', GalleryItemListCreate.as_view(), name='gallery-item-list'),
-    path('gallery-items/<int:pk>/', GalleryItemRetrieveUpdateDestroy.as_view(), name='gallery-item-detail'),
-    
-    # Authors
-    path('authors/', AuthorListCreate.as_view(), name='author-list'),
-    path('authors/<int:pk>/', AuthorRetrieveUpdateDestroy.as_view(), name='author-detail'),
-    
-    # Blog Categories
-    path('blog-categories/', BlogCategoryListCreate.as_view(), name='blog-category-list'),
-    path('blog-categories/<slug:slug>/', BlogCategoryRetrieveUpdateDestroy.as_view(), name='blog-category-detail'),
-    
-    # Blog Posts
-    path('blog-posts/', BlogPostListCreate.as_view(), name='blog-post-list'),
-    path('blog-posts/<slug:slug>/', BlogPostRetrieveUpdateDestroy.as_view(), name='blog-post-detail'),
 
-    path('countries/', CountryListCreate.as_view()),
-    path('countries/<str:code>/', CountryRetrieveUpdateDestroy.as_view()),
+urlpatterns = [
+    # Main pages
+    path("", HomeView.as_view(), name="home"),
+    path("about/", AboutView.as_view(), name="about"),
     
+    path("contact/", ContactView.as_view(), name="contact"),
+    path('api/contact/', ContactMessageCreateAPIView.as_view(), name='contact_api'),
+
+    path("projects/", ProjectsView.as_view(), name="projects"),
+    path('projects/<slug:slug>/', ProjectDetailView.as_view(), name='project_detail'),
+
+    path('news/',NewsListView.as_view(), name='news'),
+    path('news/<slug:slug>/',NewsDetailView.as_view(), name='news_detail'),
+
+    path("safety/", SafetyView.as_view(), name="safety"),
+    path("approvals/", ApprovalsView.as_view(), name="approvals"),
+    path("downloads/", DownloadsView.as_view(), name="downloads"),
+    path("calculator-results/", CalculatorResultsView.as_view(), name="calculator"),
+
+    # Services
+    path("services/academy/", AcademyView.as_view(), name="academy"),
+    path('api/academy/enroll/', AcademyEnrollmentAPIView.as_view(), name='academy_enroll_api'),
+
+    path("services/building-construction/", BuildingConstructionView.as_view(), name="building_construction"),
+    path("services/energy-efficiency/", EnergyEfficiencyView.as_view(), name="energy_efficiency"),
+    path("services/industrial-services/", IndustrialServicesView.as_view(), name="industrial_services"),
+
+    path("services/renewable-energy/", RenewableEnergyView.as_view(), name="renewable_energy"),
+    path('api/service-enquiry/', ServiceEnquiryCreateAPIView.as_view(), name='service_enquiry_api'),
+
+    path('chat-api/',chat_api, name='chat_api'),
+    path('chat-api/replies/',get_replies, name='chat_replies'),
 ]
+

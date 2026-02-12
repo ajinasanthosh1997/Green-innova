@@ -1,0 +1,368 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us | Green Innova Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    @keyframes energy-pulse {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(400%); }
+    }
+    .animate-infinite-scroll {
+        animation: energy-pulse 10s linear infinite;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- CINEMATIC HERO SECTION (LIGHT THEME) -->
+    <section class="min-h-[70vh] flex items-center pt-40 pb-12 bg-white relative overflow-hidden text-charcoal">
+        <!-- Background Decorative Elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gray-50/50 -skew-x-12 translate-x-32 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+                
+                <!-- Left: Content Narrative -->
+                <div class="lg:col-span-12 xl:col-span-6 space-y-8">
+                    <div class="space-y-4">
+                        <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-wider border border-primary/20">Who We Are</span>
+                        <h1 class="text-4xl lg:text-6xl font-bold text-charcoal leading-tight">
+                            Driving Global Change Through <span class="text-primary">Innovation.</span>
+                        </h1>
+                    </div>
+
+                    <div class="space-y-6 max-w-2xl">
+                        <p class="text-lg lg:text-xl text-gray-700 leading-relaxed font-medium">
+                            Green Innova Home is a team of visionary engineers and environmentalists dedicated to reshaping how the world consumes power.
+                        </p>
+                        <p class="text-base text-gray-500 leading-relaxed">
+                            We bridge the gap between human progress and planetary health through integrated, high-performance eco-tech.
+                        </p>
+                    </div>
+
+                    <!-- Impact Metrics & Explore (Horizontal Row) -->
+                    <div class="flex flex-wrap items-center gap-12 pt-8 border-t border-gray-100">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl font-black text-charcoal">10+</span>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-[.2em] leading-tight">Years Of<br>Excellence</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl font-black text-primary">500+</span>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-[.2em] leading-tight">Global<br>Projects</span>
+                        </div>
+                        <div class="ml-auto hidden md:block">
+                            <a href="#growth-story" class="flex items-center gap-4 text-charcoal font-black uppercase tracking-widest text-xs group">
+                                <span class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                                    <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform"></i>
+                                </span>
+                                Explore Our Story
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Floating Media Stack (Compressed) -->
+                <div class="lg:col-span-12 xl:col-span-6 relative">
+                    <div class="relative z-20 rounded-[40px] overflow-hidden shadow-[0_30px_60px_-12px_rgba(0,0,0,0.12)] transition-all duration-700">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=90" alt="Main Office" class="w-full h-[350px] lg:h-[450px] object-cover">
+                        
+                        <!-- Overlapping Glass Card (Compact Light) -->
+                        <div class="absolute bottom-6 left-6 right-6 p-6 bg-white/90 rounded-[24px] border border-white shadow-2xl backdrop-blur-xl">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-microchip text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-charcoal font-bold uppercase tracking-wider text-[10px] mb-1">Sustainable Engineering</h4>
+                                    <p class="text-gray-500 text-[10px] leading-relaxed line-clamp-1">Integrated solar & thermal solutions designed for maximum operational efficiency.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Abstract Shape Decoration -->
+                    <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISSION VISION VALUES (LIGHT REFINED PRESENTATION) -->
+    <section class="bg-gray-50 py-32 relative overflow-hidden text-charcoal">
+        <!-- Dynamic Background Glows -->
+        <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full translate-x-1/2 translate-y-1/2"></div>
+        
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-stretch">
+                
+                <!-- Left Column: Integrated Mission/Vision Card -->
+                <div class="lg:col-span-12 xl:col-span-7 flex flex-col gap-8">
+                    <!-- Headings -->
+                    <div class="mb-4">
+                        <span class="text-primary font-bold uppercase tracking-[0.4em] text-xs mb-4 block">Strategic Direction</span>
+                        <h2 class="text-5xl font-black text-charcoal leading-tight">Purpose & <span class="text-primary">Clarity</span></h2>
+                    </div>
+
+                    <!-- Mission Card -->
+                    <div class="relative group">
+                        <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-2/3 bg-primary rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="bg-white border border-gray-100 p-10 md:p-14 rounded-[48px] shadow-sm relative overflow-hidden group-hover:shadow-xl transition-all duration-500">
+                            <span class="absolute top-6 right-10 text-8xl font-black text-gray-50 italic pointer-events-none group-hover:text-primary/5 transition-colors">01</span>
+                            <div class="relative z-10">
+                                <div class="flex items-center gap-6 mb-8">
+                                    <div class="w-14 h-14 bg-primary text-white flex items-center justify-center rounded-2xl shadow-xl">
+                                        <i class="fas fa-rocket text-xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-black text-charcoal uppercase tracking-wider">Our Mission</h3>
+                                </div>
+                                <p class="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium">
+                                    To accelerate the world's transition to sustainable energy by delivering <span class="text-charcoal font-bold">innovative, high-performance eco-tech solutions</span> for every home and business.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vision Card -->
+                    <div class="relative group">
+                        <div class="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-2/3 bg-blue-500 rounded-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="bg-white border border-gray-100 p-10 md:p-14 rounded-[48px] shadow-sm relative overflow-hidden group-hover:shadow-xl transition-all duration-500">
+                            <span class="absolute top-6 right-10 text-8xl font-black text-gray-50 italic pointer-events-none group-hover:text-blue-500/5 transition-colors">02</span>
+                            <div class="relative z-10">
+                                <div class="flex items-center gap-6 mb-8">
+                                    <div class="w-14 h-14 bg-blue-600 text-white flex items-center justify-center rounded-2xl shadow-xl">
+                                        <i class="fas fa-eye text-xl"></i>
+                                    </div>
+                                    <h3 class="text-2xl md:text-3xl font-black text-charcoal uppercase tracking-wider">Our Vision</h3>
+                                </div>
+                                <p class="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium">
+                                    A future where <span class="text-charcoal font-bold">clean energy is accessible to everyone</span>, powering a resilient and thriving planet for generations to come.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Values Dashboard -->
+                <div class="lg:col-span-12 xl:col-span-5 relative mt-8 xl:mt-0">
+                    <div class="bg-white border border-gray-100 p-10 md:p-14 rounded-[56px] h-full flex flex-col relative overflow-hidden shadow-sm group-hover:shadow-xl transition-all duration-700">
+                        <div class="absolute top-0 right-0 p-8">
+                            <i class="fas fa-gem text-gray-50 text-9xl -rotate-12"></i>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <h3 class="text-4xl font-black text-charcoal mb-4">Core <span class="text-primary italic">Values</span></h3>
+                            <p class="text-gray-400 text-sm font-bold uppercase tracking-widest mb-12">The pillars of our execution</p>
+                            
+                            <div class="space-y-12">
+                                <!-- Value Item -->
+                                <div class="flex gap-6 group/item">
+                                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center flex-shrink-0 group-hover/item:bg-primary group-hover/item:text-white transition-all duration-300">
+                                        <i class="fas fa-microchip"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-charcoal mb-2">Innovation-First</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">Continuous R&D to provide the most efficient energy systems on the market.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-6 group/item">
+                                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center flex-shrink-0 group-hover/item:bg-primary group-hover/item:text-white transition-all duration-300">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-charcoal mb-2">Uncompromising Quality</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">Every installation is built to last 25+ years with zero performance degradation.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex gap-6 group/item">
+                                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center flex-shrink-0 group-hover/item:bg-primary group-hover/item:text-white transition-all duration-300">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-charcoal mb-2">Customer Centricity</h4>
+                                        <p class="text-gray-500 text-sm leading-relaxed">24/7 dedicated support and personalized optimization for every client.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-auto pt-16">
+                                <div class="flex items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                    <span class="w-8 h-px bg-gray-100"></span>
+                                    <span>Proven commitment since 2015</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GROWTH STORY (UNIQUE CHRONICLE PRESENTATION) -->
+    <section id="growth-story" class="py-32 bg-white relative overflow-hidden">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+            <div class="max-w-3xl mb-24">
+                <span class="text-primary font-bold uppercase tracking-[0.4em] text-xs mb-4 block">Our Journey</span>
+                <h2 class="text-5xl font-black text-charcoal leading-tight">A Decade of <br><span class="text-primary">Sustainable Impact</span></h2>
+                <p class="text-gray-500 mt-6 text-xl leading-relaxed">Tracing our evolution from a visionary laboratory to a global leader in clean energy engineering.</p>
+            </div>
+
+            <div class="relative">
+                <!-- High-Voltage Energy Conduit (Unique Path) -->
+                <div class="absolute left-4 md:left-1/2 -translate-x-1/2 top-0 h-full w-8 hidden md:block">
+                    <!-- Outer Rails -->
+                    <div class="absolute inset-y-0 left-0 w-px bg-gray-200"></div>
+                    <div class="absolute inset-y-0 right-0 w-px bg-gray-200"></div>
+                    
+                    <!-- Internal Busbar (Animated Gradient) -->
+                    <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-1 bg-gray-100 overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-transparent via-primary to-transparent animate-infinite-scroll opacity-40"></div>
+                        <div class="absolute top-1/2 left-0 w-full h-1/2 bg-gradient-to-b from-primary via-blue-500 to-transparent opacity-60"></div>
+                    </div>
+
+                    <!-- Energy Nodes (Decorative) -->
+                    <div class="absolute top-[15%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-primary/20"></div>
+                    <div class="absolute top-[40%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-blue-500/20"></div>
+                    <div class="absolute top-[65%] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-amber-500/20"></div>
+                </div>
+
+                <!-- Journey Milestones -->
+                <div class="space-y-24 md:space-y-40">
+                    
+                    <!-- 2015: The Foundation -->
+                    <div class="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center group">
+                        <div class="md:text-right md:pr-16 order-2 md:order-1">
+                            <div class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-black uppercase tracking-widest mb-4">2015</div>
+                            <h3 class="text-3xl font-black text-charcoal mb-4 group-hover:text-primary transition-colors">The Foundation</h3>
+                            <p class="text-gray-500 text-lg leading-relaxed">Green Innova was born in a small lab with a big dream: to make solar energy affordable for residential neighborhoods. We started with just 3 engineers and a single vision.</p>
+                        </div>
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-primary shadow-[0_0_30px_rgba(16,185,129,0.6)] z-20 hidden md:flex items-center justify-center group-hover:scale-125 transition-transform">
+                            <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                        </div>
+                        <div class="md:pl-16 order-1 md:order-2">
+                            <div class="relative rounded-[40px] overflow-hidden shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <img src="https://images.unsplash.com/photo-1509391366360-feaffa6021fb?auto=format&fit=crop&w=800&q=80" alt="2015" class="w-full h-64 md:h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2018: Industrial Expansion -->
+                    <div class="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center group">
+                        <div class="md:pr-16 order-1">
+                            <div class="relative rounded-[40px] overflow-hidden shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <img src="https://images.unsplash.com/photo-1466611653911-95281773ad90?auto=format&fit=crop&w=800&q=80" alt="2018" class="w-full h-64 md:h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            </div>
+                        </div>
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-blue-500 shadow-[0_0_30px_rgba(59,130,246,0.6)] z-20 hidden md:flex items-center justify-center group-hover:scale-125 transition-transform">
+                            <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                        </div>
+                        <div class="md:pl-16 order-2">
+                            <div class="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-600 text-sm font-black uppercase tracking-widest mb-4">2018</div>
+                            <h3 class="text-3xl font-black text-charcoal mb-4 group-hover:text-blue-600 transition-colors">Industrial Expansion</h3>
+                            <p class="text-gray-500 text-lg leading-relaxed">Launched our Industrial Services division, helping major factories reduce their energy footprint by 30% through intelligent waste-heat recovery and MW-scale PV integration.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2022: Green Innova Academy -->
+                    <div class="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center group">
+                        <div class="md:text-right md:pr-16 order-2 md:order-1">
+                            <div class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-600 text-sm font-black uppercase tracking-widest mb-4">2022</div>
+                            <h3 class="text-3xl font-black text-charcoal mb-4 group-hover:text-amber-600 transition-colors">Green Innova Academy</h3>
+                            <p class="text-gray-500 text-lg leading-relaxed">Founded the Academy to train certified eco-tech specialists, addressing the global talent gap. To date, we've certified over 1,200 sustainability leaders worldwide.</p>
+                        </div>
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-amber-500 shadow-[0_0_30px_rgba(245,158,11,0.6)] z-20 hidden md:flex items-center justify-center group-hover:scale-125 transition-transform">
+                            <div class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
+                        </div>
+                        <div class="md:pl-16 order-1 md:order-2">
+                            <div class="relative rounded-[40px] overflow-hidden shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="2022" class="w-full h-64 md:h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2026: The Global Future -->
+                    <div class="relative grid md:grid-cols-2 gap-12 md:gap-24 items-center group">
+                        <div class="md:pr-16 order-1">
+                            <div class="relative rounded-[40px] overflow-hidden shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80" alt="2026" class="w-full h-64 md:h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                            </div>
+                        </div>
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-primary shadow-[0_0_30px_rgba(16,185,129,0.6)] z-20 hidden md:flex items-center justify-center group-hover:scale-125 transition-transform">
+                            <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                        </div>
+                        <div class="md:pl-16 order-2">
+                            <div class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-sm font-black uppercase tracking-widest mb-4">2026</div>
+                            <h3 class="text-3xl font-black text-charcoal mb-4 group-hover:text-primary transition-colors">Global Leader</h3>
+                            <p class="text-gray-500 text-lg leading-relaxed">Reaching international markets with 500+ successful MW-scale projects. We are now the tech-partner of choice for Fortune 500 companies seeking net-zero operations.</p>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Journey Summary Card at bottom -->
+                <div class="mt-32 p-12 lg:p-16 rounded-[56px] bg-gray-50 text-charcoal text-center relative overflow-hidden group border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-700">
+                    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
+                    <div class="relative z-10 max-w-2xl mx-auto">
+                        <h4 class="text-3xl font-black mb-6">And we are just getting started.</h4>
+                        <p class="text-gray-500 text-lg mb-10 leading-relaxed italic text-balance">"Our growth isn't measured in years, but in the gigawatts of clean energy we've empowered the world to harvest."</p>
+                        <a href="{% url 'projects' %}" class="inline-flex items-center gap-4 bg-charcoal text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-primary transition-all shadow-xl">
+                            <span>View Our Projects</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Smooth scroll for "Explore Our Story" button
+    document.addEventListener('DOMContentLoaded', function() {
+        const exploreButton = document.querySelector('a[href="#growth-story"]');
+        if (exploreButton) {
+            exploreButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.getElementById('growth-story');
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+        
+        // Add animation on scroll for timeline items
+        const timelineItems = document.querySelectorAll('.group');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        timelineItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(item);
+        });
+    });
+</script>
+{% endblock %}

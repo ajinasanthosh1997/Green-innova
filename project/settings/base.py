@@ -13,9 +13,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from decouple import config
 from django.utils.translation import gettext_lazy as _
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-zcx#%%-xwrtuqz77)$i%-n2ce)=*aushttnm9#zwz0v++z_7eb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['']
 
 
 # Application definition
@@ -47,13 +48,60 @@ INSTALLED_APPS = [
     'modeltranslation',  
 
     'seo',
+    'channels',                    
     'core',
+    'chatwidget',
     'users',
+    'django_ckeditor_5',
 
-    'ckeditor',
+     
+  
     'rest_framework',
 ]
 
+
+# CKEditor 5 Configuration
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': {
+            'items': [
+                'heading', '|',
+                'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|',
+                'insertTable', '|',
+                'undo', 'redo', '|',
+                'fontColor', 'fontBackgroundColor',
+                'alignment', '|',
+                'code', 'codeBlock',
+            ],
+            'shouldNotGroupWhenFull': True
+        },
+        'image': {
+            'toolbar': [
+                'imageTextAlternative',
+                'imageStyle:full',
+                'imageStyle:side',
+                'linkImage'
+            ]
+        },
+        'table': {
+            'contentToolbar': [
+                'tableColumn',
+                'tableRow',
+                'mergeTableCells',
+                'tableProperties',
+                'tableCellProperties'
+            ]
+        },
+        'height': 400,
+        'width': '100%',
+        'language': 'en',
+    },
+}
+
+# Optional: file upload settings
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # or "authenticated"
+CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'webp', 'tiff']
+CKEDITOR_5_UPLOAD_PATH = "uploads/ckeditor/"
 
 REST_FRAMEWORK = {
     
@@ -78,6 +126,8 @@ JAZZMIN_SETTINGS = {
         {"name": "Dashboard", "url": "admin:index", "permissions": ["auth.view_user"]},
     ],
     "changeform_format": "horizontal_tabs",  # Modern form layout :cite[2]
+    "custom_css": "css/admin_custom.css",   # relative to STATIC_URL
+    "custom_js": "js/admin_custom.js",
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -102,20 +152,26 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # ✅ THIS FIXES EVERYTHING
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
+                'core.context_processors.contact_info',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'   # for dev only
+    }
+}
 
 
 # Database
@@ -168,8 +224,13 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR/ 'static'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",   
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -178,3 +239,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# OPENAI_API_KEY = config('OPENAI_API_KEY')

@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Energy Efficiency | Green Innova Home{% endblock %}
+
+
+{% block extra_css %}
+<style>
+    /* Energy Efficiency specific styles */
+    .energy-efficiency-page .floating-subnav {
+        position: fixed;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 100px;
+        padding: 12px 24px;
+        z-index: 40;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .energy-efficiency-page .floating-subnav a {
+        padding: 8px 20px;
+        border-radius: 100px;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #666;
+        transition: all 0.3s ease;
+    }
+    
+    .energy-efficiency-page .floating-subnav a:hover,
+    .energy-efficiency-page .floating-subnav a.active {
+        background: #10B981;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- SERVICE MENU BAR (Sub-navigation) -->
+    <div id="service-subnav" class="floating-subnav hidden md:flex items-center gap-1">
+        <a href="{% url 'renewable_energy' %}">Renewable</a>
+        <a href="{% url 'energy_efficiency' %}" class="active">Efficiency</a>
+        <a href="{% url 'building_construction' %}">Construction</a>
+        <a href="{% url 'industrial_services' %}">Industrial</a>
+        <a href="{% url 'academy' %}">Academy</a>
+    </div>
+
+    <main class="pt-24">
+        <!-- SERVICE HERO -->
+        <section class="py-20 relative overflow-hidden bg-charcoal text-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1 animate-fade-in-up">
+                    <span class="text-primary font-bold uppercase tracking-widest text-sm mb-4 block">Efficiency Service</span>
+                    <h1 class="text-5xl font-bold mb-6">Energy Efficiency Solutions</h1>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Stop wasting energy and start saving money. We provide advanced audits and technology-driven upgrades to make your buildings smarter and greener.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#enquiry" class="bg-primary text-charcoal px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform">Request Audit</a>
+                    </div>
+                </div>
+                <div class="flex-1 w-full flex justify-center">
+                    <div class="w-full max-w-lg aspect-square bg-gradient-to-br from-blue-400/20 to-primary/20 rounded-full flex items-center justify-center relative">
+                        <i class="fas fa-leaf text-9xl text-primary animate-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUB-SERVICES GRID -->
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+                <div class="text-center max-w-3xl mx-auto mb-20">
+                    <h2 class="text-4xl font-bold italic mb-6">Strategic Energy <span class="text-primary text-5xl">Optimization</span></h2>
+                    <p class="text-gray-500 text-lg italic">We provide the technical intelligence and management frameworks needed to achieve maximum efficiency and regulatory compliance.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Internal Energy Audit -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-search-dollar text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Internal Energy Audit</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Rigorous site-wide assessments using thermal imaging and power logging to identify hidden waste.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">ISO 50001 Aligned</span>
+                    </div>
+
+                    <!-- Energy Management Solutions -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-microchip text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Management Solutions</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Deployment of real-time monitoring hardware and AI-driven control algorithms for building HVAC and lighting.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">IoT Enabled</span>
+                    </div>
+
+                    <!-- Certification Readiness -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-tasks text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Certification Readiness</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Pre-audit gap analysis and technical documentation prep for ISO, LEED, or Estidama compliance.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Zero-Gap Goal</span>
+                    </div>
+
+                    <!-- Certification Support -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-user-shield text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Certification Support</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">End-to-end liaison with certifying bodies and implementation of required technical upgrades.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Expert Liaison</span>
+                    </div>
+
+                    <!-- Periodic Energy Reporting -->
+                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <i class="fas fa-chart-bar text-primary text-2xl group-hover:text-white transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Periodic Reporting</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Automated and manual energy consumption reports (weekly/monthly) for stakeholder review.</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Data-Driven</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENQUIRY SECTION -->
+        <section class="py-24 bg-charcoal text-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24 grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold italic mb-8">Measure. <span class="text-primary italic">Optimize.</span> Save.</h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Achieving 20-30% energy reduction is often possible through specialized optimization. Let us analyze your baseline and show you the roadmap to efficiency.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                                <i class="fas fa-temperature-low"></i>
+                            </div>
+                            <span class="text-sm font-bold uppercase tracking-widest italic">Thermal Leak Detection Services</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <span class="text-sm font-bold uppercase tracking-widest italic">Guaranteed ROI Calculations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENQUIRY FORM -->
+                <!-- ENQUIRY FORM (updated) -->
+<div id="enquiry" class="glass-effect p-10 rounded-3xl shadow-2xl border border-gray-200">
+    <h3 class="text-2xl font-bold mb-2">Energy Audit Request</h3>
+    <p class="text-gray-500 mb-8">Ready to lower your bills? Let us know your requirements.</p>
+    
+    <form id="enquiry-form" class="space-y-6">
+        {% csrf_token %}
+        
+        <input type="text" name="name" required 
+               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3" 
+               placeholder="Full Name">
+        
+        <input type="email" name="email" required 
+               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3" 
+               placeholder="Email Address">
+        
+        <!-- ✅ ADD PHONE FIELD (required) -->
+        <input type="tel" name="phone" required 
+               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3" 
+               placeholder="Phone Number">
+        
+        <textarea name="message" rows="4" required 
+                  class="w-full bg-white text-black border border-gray-200 rounded-xl px-4 py-3" 
+                  placeholder="Tell us about your building type..."></textarea>
+        
+        <button type="submit" 
+                class="w-full bg-primary text-white py-4 rounded-xl font-bold hover:bg-primary-dark transition-all">
+            Submit Request
+        </button>
+    </form>
+
+    <!-- ✅ FEEDBACK CONTAINER (hidden by default) -->
+    <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl text-center font-bold"></div>
+</div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('enquiry-form');
+    const feedback = document.getElementById('form-feedback');
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Clear previous styles
+        feedback.className = 'hidden mt-4 p-4 rounded-xl text-center font-bold';
+        feedback.textContent = '';
+
+        const formData = new FormData(form);
+        // 🔁 Identify this as an Energy Efficiency enquiry
+        formData.append('service', 'efficiency');
+
+        try {
+            const response = await fetch('/api/service-enquiry/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                    'Accept': 'application/json',
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                // ✅ Success
+                feedback.classList.remove('hidden', 'bg-red-100', 'text-red-600');
+                feedback.classList.add('bg-green-100', 'text-green-600');
+                feedback.textContent = result.message; // "Your enquiry has been sent..."
+                form.reset();
+            } else {
+                // ❌ Validation or server error
+                let errorMsg = result.message || 'Please correct the errors below.';
+                if (result.data) {
+                    // Show first field error
+                    const firstField = Object.keys(result.data)[0];
+                    if (firstField) {
+                        errorMsg = `${firstField}: ${result.data[firstField]}`;
+                    }
+                }
+                feedback.classList.remove('hidden', 'bg-green-100', 'text-green-600');
+                feedback.classList.add('bg-red-100', 'text-red-600');
+                feedback.textContent = errorMsg;
+            }
+        } catch (error) {
+            feedback.classList.remove('hidden', 'bg-green-100', 'text-green-600');
+            feedback.classList.add('bg-red-100', 'text-red-600');
+            feedback.textContent = 'Network error. Please try again.';
+        }
+    });
+});
+</script>
+{% endblock %}

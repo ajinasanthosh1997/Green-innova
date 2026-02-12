@@ -22,11 +22,15 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('seo/',include('seo.urls')),
-    path('core/',include('core.urls')),
+    path('',include('core.urls')),
 
-    path('api/v1/seo/',include('seo.urls')),
-    path('api/v1/core/',include('core.urls'))
+    # path("chatwidget/", include("chatwidget.urls")),
+
+
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
+  
 
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
