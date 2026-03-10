@@ -244,6 +244,12 @@
         {% block content %}
         {% endblock %}
     </main>
+<!-- WhatsApp Floating Button -->
+    <div id="chatbot-container" class="fixed bottom-6 right-6 z-[60]">
+        <a href="https://wa.me/97317600334" target="_blank" class="w-16 h-16 bg-[#25D366] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform animate-bounce-slow">
+            <i class="fab fa-whatsapp text-3xl"></i>
+        </a>
+    </div>
 
     <!-- FOOTER – DYNAMIC -->
     <footer id="main-footer" class="bg-charcoal text-white pt-24 pb-12 relative overflow-hidden">
@@ -337,17 +343,7 @@
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/calculator.js' %}"></script>
     <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6992c85d1fd06e1c36a87917/1jhiltcb1';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
+
 <!--End of Tawk.to Script-->
     {% block extra_js %}
     {% endblock %}
