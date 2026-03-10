@@ -8,12 +8,11 @@ from asgiref.sync import async_to_sync
 from .models import (
     Project, ProjectImage, ProjectStat, NewsArticle,
     DownloadCategory, DownloadItem,
-    AcademyCourse, AcademyCourseFeature, AcademyEnrollment,
-    ChatMessage, ServiceEnquiry, ContactMessage, SiteConfiguration
+    ChatMessage, ContactMessage, SiteConfiguration, Client, Partner,
+    JourneyMilestone, Certificate, TeamMember, SolarLead,CalculatorLead,QuoteSelection
 )
 
 
-# ---------- PROJECTS ----------
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
     extra = 0
@@ -35,7 +34,6 @@ class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ProjectImageInline]
     
-    # ✅ NO fieldsets – simple field list
     fields = (
         'title', 'slug', 'category', 'short_description', 'full_description',
         'main_image',
@@ -56,7 +54,6 @@ class ProjectStatAdmin(admin.ModelAdmin):
     fields = ('title', 'value', 'description', 'icon', 'display_order', 'is_active')
 
 
-# ---------- NEWS ----------
 @admin.register(NewsArticle)
 class NewsArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'published_date', 'is_featured', 'is_active')
@@ -71,7 +68,6 @@ class NewsArticleAdmin(admin.ModelAdmin):
     )
 
 
-# ---------- DOWNLOADS ----------
 @admin.register(DownloadCategory)
 class DownloadCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'layout', 'display_order', 'is_active')
@@ -98,89 +94,30 @@ class DownloadItemAdmin(admin.ModelAdmin):
     )
 
 
-# ---------- ACADEMY ----------
-class AcademyCourseFeatureInline(admin.TabularInline):
-    model = AcademyCourseFeature
-    extra = 0
-    fields = ('text', 'icon', 'display_order')
-
-
-@admin.register(AcademyCourse)
-class AcademyCourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'display_order', 'is_active')
-    list_editable = ('display_order', 'is_active')
-    prepopulated_fields = {'slug': ('title',)}
-    inlines = [AcademyCourseFeatureInline]
-    search_fields = ('title', 'description')
-    list_filter = ('is_active',)
-    
-    fields = (
-        'title', 'slug', 'icon', 'description', 'syllabus_file',
-        'display_order', 'is_active',
-    )
-
-
-@admin.register(AcademyEnrollment)
-class AcademyEnrollmentAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'email', 'course', 'created_at', 'is_contacted')
-    list_filter = ('course', 'is_contacted', 'created_at')
-    list_editable = ('is_contacted',)
-    list_select_related = ('course',)
-    search_fields = ('full_name', 'email', 'phone')
-    readonly_fields = ('created_at',)
-    
-    fields = (
-        'full_name', 'email', 'phone', 'course', 'background',
-        'is_contacted', 'notes', 'created_at',
-    )
-
-
-# ---------- SERVICE ENQUIRY ----------
-@admin.register(ServiceEnquiry)
-class ServiceEnquiryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'service', 'created_at', 'is_contacted')
-    list_filter = ('service', 'is_contacted', 'created_at')
-    search_fields = ('name', 'email', 'message')
-    actions = ['mark_as_contacted']
-    
-    fields = (
-        'name', 'email', 'phone', 'message', 'service',
-        'created_at', 'is_contacted', 'notes',
-    )
-    readonly_fields = ('created_at',)
-    
-    def mark_as_contacted(self, request, queryset):
-        queryset.update(is_contacted=True)
-    mark_as_contacted.short_description = "Mark selected as contacted"
-
-
-# ---------- CHAT ----------
-
-
 @admin.register(ChatMessage)
 class ChatMessageAdmin(admin.ModelAdmin):
-    # ... your existing fields, list_display, etc.
-
+    list_display = ('id', 'user_message', 'admin_reply', 'created_at', 'replied_at', 'is_archived')
+    list_filter = ('is_archived', 'created_at')
+    search_fields = ('user_message', 'admin_reply')
+    readonly_fields = ('created_at', 'replied_at', 'replied_by')
+    
     def save_model(self, request, obj, form, change):
-        # Set replied_by and replied_at if a reply is added
         if obj.admin_reply and not obj.replied_by:
             obj.replied_by = request.user
             obj.replied_at = timezone.now()
-
         super().save_model(request, obj, form, change)
-
-        # --- Send WebSocket notification ---
         if obj.admin_reply:
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
-                f'chat_{obj.id}',           # room name = chat_<message_id>
+                f'chat_{obj.id}',
                 {
-                    'type': 'chat_reply',   # must match consumer method name
+                    'type': 'chat_reply',
                     'reply': obj.admin_reply,
                     'message_id': obj.id
                 }
             )
-# ---------- CONTACT ----------
+
+
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'phone', 'created_at', 'is_contacted')
@@ -199,10 +136,8 @@ class ContactMessageAdmin(admin.ModelAdmin):
     mark_as_contacted.short_description = "Mark selected as contacted"
 
 
-# ---------- SITE CONFIGURATION (SINGLETON) ----------
 @admin.register(SiteConfiguration)
 class SiteConfigurationAdmin(admin.ModelAdmin):
-    # ✅ NO fieldsets – just a clean list of all editable fields
     fields = (
         'phone', 'email', 'address',
         'linkedin', 'instagram', 'facebook', 'youtube',
@@ -210,7 +145,6 @@ class SiteConfigurationAdmin(admin.ModelAdmin):
     )
 
     def has_add_permission(self, request):
-        # Cache the existence check – speeds up admin
         if not hasattr(self, '_has_add_permission'):
             exists = cache.get('siteconfig_exists')
             if exists is None:
@@ -221,3 +155,67 @@ class SiteConfigurationAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ('name', 'display_order', 'is_active')
+    list_editable = ('display_order', 'is_active')
+    search_fields = ('name',)
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'display_order', 'is_active')
+    list_editable = ('display_order', 'is_active')
+    search_fields = ('name',)
+    fields = ('name', 'logo', 'url', 'display_order', 'is_active')
+
+
+@admin.register(JourneyMilestone)
+class JourneyMilestoneAdmin(admin.ModelAdmin):
+    list_display = ('year', 'title', 'accent_color', 'display_order', 'is_active')
+    list_editable = ('accent_color', 'display_order', 'is_active')
+    list_filter = ('year', 'accent_color', 'is_active')
+    search_fields = ('title', 'description')
+    fields = ('year', 'title', 'description', 'image', 'accent_color', 'display_order', 'is_active')
+
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ('title', 'status_value', 'display_order', 'is_active')
+    list_editable = ('display_order', 'is_active')
+    fields = ('title', 'description', 'icon', 'status_label', 'status_value', 'badge_icon', 'display_order', 'is_active')
+
+
+@admin.register(TeamMember)
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'role', 'category', 'display_order', 'is_active')
+    list_editable = ('display_order', 'is_active')
+    list_filter = ('category', 'is_active')
+    search_fields = ('name', 'role')
+    fields = ('name', 'role', 'category', 'quote', 'bio', 'image',
+              'linkedin_url', 'twitter_url', 'instagram_url', 'facebook_url',
+              'display_order', 'is_active')
+
+
+@admin.register(SolarLead)
+class SolarLeadAdmin(admin.ModelAdmin):
+    list_display = ('phone', 'monthly_units', 'system_size', 'cost', 'created_at')
+    readonly_fields = ('created_at',)
+
+@admin.register(CalculatorLead)
+class CalculatorLeadAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'location', 'type', 'commercial_option', 'value', 'created_at', 'is_contacted')
+    list_filter = ('type', 'subsidy', 'commercial_option', 'is_contacted', 'created_at')
+    search_fields = ('name', 'email', 'phone', 'location')
+    list_editable = ('is_contacted',)
+    readonly_fields = ('created_at',)
+    
+
+
+@admin.register(QuoteSelection)
+class QuoteSelectionAdmin(admin.ModelAdmin):
+    list_display = ('lead', 'plan_name', 'system_size', 'price', 'created_at')
+    list_filter = ('plan_name', 'created_at')
+    search_fields = ('lead__name', 'lead__email')

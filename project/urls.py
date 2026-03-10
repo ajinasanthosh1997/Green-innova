@@ -24,6 +24,8 @@ urlpatterns = [
     path('seo/',include('seo.urls')),
     path('',include('core.urls')),
 
+    path('services/', include('service.urls')),
+    
     # path("chatwidget/", include("chatwidget.urls")),
 
 

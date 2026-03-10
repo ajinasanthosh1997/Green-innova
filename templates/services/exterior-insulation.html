@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Exterior Insulation (EIFS) | Green Innova Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Exterior Insulation specific styles */
+    .exterior-insulation-page .floating-subnav {
+        position: fixed;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 100px;
+        padding: 12px 24px;
+        z-index: 40;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .exterior-insulation-page .floating-subnav a {
+        padding: 8px 20px;
+        border-radius: 100px;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #666;
+        transition: all 0.3s ease;
+    }
+    
+    .exterior-insulation-page .floating-subnav a:hover,
+    .exterior-insulation-page .floating-subnav a.active {
+        background: #10B981;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- SERVICE MENU BAR (Sub-navigation) -->
+    <div id="service-subnav" class="floating-subnav hidden md:flex items-center gap-1">
+        <a href="{% url 'renewable_energy' %}">Renewable</a>
+        <a href="{% url 'exterior_insulation' %}" class="active">Ext. Insulation</a>
+        <a href="{% url 'energy_efficiency' %}">Efficiency</a>
+        <a href="{% url 'building_construction' %}">Construction</a>
+        <a href="{% url 'industrial_services' %}">Industrial</a>
+        <a href="{% url 'academy' %}">Academy</a>
+    </div>
+
+    <main class="pt-24">
+        <!-- SERVICE HERO -->
+        <section class="py-20 relative overflow-hidden bg-charcoal text-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10 flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1 animate-fade-in-up">
+                    <span class="text-primary font-bold uppercase tracking-widest text-sm mb-4 block">Core Service</span>
+                    <h1 class="text-5xl font-bold mb-6">Exterior Insulation (External Insulation Finishing System)</h1>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                        Innovative façade insulation systems that enhance building performance, durability, and energy efficiency. As a leading EIFS provider in Bahrain, we deliver sustainable value using world-class Terraco solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#enquiry" class="bg-primary text-charcoal px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform">Get a Quote</a>
+                        <a href="{% url 'projects' %}" class="border border-white/20 px-8 py-4 rounded-full font-bold hover:bg-white/10 transition-all">View Projects</a>
+                    </div>
+                </div>
+                <div class="flex-1 w-full flex justify-center">
+                    <div class="w-full max-w-lg aspect-square bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-full flex items-center justify-center relative">
+                        <div class="absolute inset-0 bg-primary blur-[120px] opacity-20"></div>
+                        <i class="fas fa-layer-group text-9xl text-primary animate-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OVERVIEW SECTION -->
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold italic mb-6">Sustainable <span class="text-primary">Façade Solutions</span></h2>
+                        <div class="space-y-6 text-gray-600 text-lg leading-relaxed">
+                            <p>
+                                Green Innova specializes in EIFS using Terraco solutions. Founded in 2013, we are an ISO-certified company (ISO 9001, 14001, and 45001), an NOCN-approved training center, and a member of the US Green Building Council.
+                            </p>
+                            <p>
+                                Exterior Insulation Finishing Systems are energy-efficient thermal wrappings applied to building exteriors, finished with durable and decorative coatings. Terraco, a pioneer since the 1980s, provides systems with global certifications (EOTA, BBA, US FED) ensuring peak performance.
+                            </p>
+                            <p class="italic font-medium text-gray-800">
+                                EIFS are valued in both hot and cold climates for their sustainability, return on investment, and design flexibility.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 text-center">
+                            <div class="text-4xl font-bold text-primary mb-2">20+</div>
+                            <div class="text-sm font-bold uppercase tracking-widest text-gray-400">Year Life Extension</div>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 text-center">
+                            <div class="text-4xl font-bold text-primary mb-2">40%</div>
+                            <div class="text-sm font-bold uppercase tracking-widest text-gray-400">Electricity Reduction</div>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 text-center">
+                            <div class="text-4xl font-bold text-primary mb-2">20%</div>
+                            <div class="text-sm font-bold uppercase tracking-widest text-gray-400">Cost Reduction</div>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 text-center">
+                            <div class="text-4xl font-bold text-primary mb-2">LEED</div>
+                            <div class="text-sm font-bold uppercase tracking-widest text-gray-400">Compliant Solution</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TECHNICAL OVERVIEW -->
+        <section class="py-24 bg-gray-50">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+                <div class="text-center max-w-3xl mx-auto mb-20">
+                    <h2 class="text-4xl font-bold italic mb-6">Technical <span class="text-primary text-5xl">Excellence</span></h2>
+                    <p class="text-gray-500 text-lg">EIFS provides a building with continuous exterior insulation, applied to surfaces and finished with long-life protective coating systems.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for feature in eifs_features %}
+    <div class="bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-xl transition-all">
+        <i class="fas {{ feature.icon }} text-primary text-4xl mb-6 block"></i>
+        <h3 class="text-xl font-bold mb-4">{{ feature.title }}</h3>
+        <p class="text-gray-600 leading-relaxed italic">{{ feature.description }}</p>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 col-span-3">No technical features added yet.</p>
+    {% endfor %}
+</div>
+            </div>
+        </section>
+
+        <!-- MAJOR PROJECTS -->
+        <section class="py-24 bg-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+                <div class="mb-16">
+                    <h2 class="text-3xl font-bold italic mb-8">Major EIFS Milestone Projects</h2>
+                   <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    {% for project in eifs_projects %}
+    <div class="group cursor-pointer">
+        <div class="relative overflow-hidden rounded-3xl mb-6 aspect-video bg-charcoal">
+            {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            {% else %}
+                <div class="w-full h-full bg-gray-700 flex items-center justify-center text-white">No image</div>
+            {% endif %}
+            <div class="absolute inset-0 bg-charcoal/40 flex items-center justify-center p-8 text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <h3 class="text-2xl font-bold text-white italic">{{ project.title }}</h3>
+            </div>
+        </div>
+        <h4 class="text-xl font-bold mb-2">{{ project.title }}</h4>
+        <p class="text-gray-500 text-sm italic">{{ project.short_description }}</p>
+    </div>
+    {% empty %}
+    <p class="text-gray-500 col-span-3">No projects added yet.</p>
+    {% endfor %}
+</div>
+                </div>
+
+                <div class="bg-charcoal rounded-[3rem] p-12 text-white overflow-hidden relative">
+                    <div class="absolute right-0 top-0 p-8 opacity-10">
+                        <i class="fas fa-list-check text-9xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-8 italic border-l-4 border-primary pl-6">Supply & Installation References</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-6">
+    {% for ref in eifs_references %}
+    <div class="flex justify-between border-b border-white/10 pb-2">
+        <span class="text-gray-400">{{ ref.project_name }}</span>
+        <span class="font-bold text-primary">{{ ref.area_sqm }}</span>
+    </div>
+    {% empty %}
+    <p class="text-gray-400 col-span-3">No references added yet.</p>
+    {% endfor %}
+</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENQUIRY SECTION -->
+        <section class="py-24 bg-charcoal text-white">
+            <div class="container mx-auto px-4 lg:px-12 xl:px-24 grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold italic mb-8">Thermal <span class="text-primary italic">Efficiency</span> Assessment</h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Consult with our engineering team for a full thermal audit and façade assessment. Discover how EIFS can transform your building's lifespan and energy footprint.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                            <span class="text-sm font-bold uppercase tracking-widest italic">EWA Certified products</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENQUIRY FORM (AJAX) -->
+                <div id="enquiry" class="bg-white p-10 rounded-3xl shadow-2xl border border-gray-200">
+                    <h3 class="text-2xl font-bold mb-2 text-charcoal">Get EIFS Quote</h3>
+                    <p class="text-gray-500 mb-8">Submit your project details for a customized EIFS proposal and technical consultation.</p>
+                    
+                    <form id="enquiry-form" class="space-y-6">
+                        {% csrf_token %}
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-charcoal mb-2">Full Name</label>
+                                <input type="text" name="name" required class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 text-charcoal outline-none transition-all" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-charcoal mb-2">Email Address</label>
+                                <input type="email" name="email" required class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 text-charcoal outline-none transition-all" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-charcoal mb-2">Phone Number</label>
+                            <input type="tel" name="phone" required class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 text-charcoal outline-none transition-all" placeholder="+973 1234 5678">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-charcoal mb-2">Project Surface Area (sqm)</label>
+                            <input type="number" name="area" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 text-charcoal outline-none transition-all" placeholder="e.g., 5000">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-charcoal mb-2">Message</label>
+                            <textarea name="message" rows="4" required class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 text-charcoal outline-none transition-all" placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-bold text-lg hover:bg-primary-dark transition-all shadow-lg">Request Consultation</button>
+                    </form>
+                    <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl text-center font-bold"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('enquiry-form');
+    const feedback = document.getElementById('form-feedback');
+
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Clear previous feedback
+        feedback.className = 'hidden mt-4 p-4 rounded-xl text-center font-bold';
+        feedback.textContent = '';
+
+        // Basic client-side validation
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const phone = form.phone.value.trim();
+        const message = form.message.value.trim();
+
+        if (!name || !email || !phone || !message) {
+            feedback.classList.remove('hidden', 'bg-green-100', 'text-green-600');
+            feedback.classList.add('bg-red-100', 'text-red-600');
+            feedback.textContent = 'Please fill in all required fields.';
+            return;
+        }
+
+        const formData = new FormData(form);
+        // Append service identifier – use the new choice if you added it, otherwise map to 'construction'
+        formData.append('service', 'exterior_insulation'); // or 'construction' if you haven't added the new choice
+
+        try {
+            const response = await fetch('{% url "service_enquiry_api" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                    'Accept': 'application/json',
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                feedback.classList.remove('hidden', 'bg-red-100', 'text-red-600');
+                feedback.classList.add('bg-green-100', 'text-green-600');
+                feedback.textContent = result.message;
+                form.reset();
+            } else {
+                // Handle validation errors
+                let errorMsg = result.message || 'Please correct the errors below.';
+                if (result.data) {
+                    const firstField = Object.keys(result.data)[0];
+                    if (firstField) {
+                        errorMsg = `${firstField}: ${result.data[firstField]}`;
+                    }
+                }
+                feedback.classList.remove('hidden', 'bg-green-100', 'text-green-600');
+                feedback.classList.add('bg-red-100', 'text-red-600');
+                feedback.textContent = errorMsg;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            feedback.classList.remove('hidden', 'bg-green-100', 'text-green-600');
+            feedback.classList.add('bg-red-100', 'text-red-600');
+            feedback.textContent = 'Network error. Please try again.';
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -81,56 +81,19 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Steam Engineering -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-wind text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Steam Engineering</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Optimization of boiler systems, trap management, and distribution networks for maximum thermal efficiency.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Thermal Max</span>
-                    </div>
-
-                    <!-- Heat Recovery -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-retweet text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Heat Recovery</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Capture and repurpose of waste heat from industrial processes to lower overall fuel consumption.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Zero Waste goal</span>
-                    </div>
-
-                    <!-- Sampling Systems -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-flask text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Sampling Systems</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Automated and manual sampling solutions for chemical, water, and steam quality control.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Precision QC</span>
-                    </div>
-
-                    <!-- Calibration Services -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-compass text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Calibration Services</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">NIST-traceable calibration for pressure, temperature, and flow instrumentation.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Certified Accuracy</span>
-                    </div>
-
-                    <!-- Sustainability Software -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-laptop-code text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Sustainability Software</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Digital dashboards for ESG reporting and industrial carbon footprint tracking.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Digital ESG</span>
-                    </div>
-                </div>
+    {% for service in sub_services %}
+    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
+        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+            <i class="fas {{ service.icon }} text-primary text-2xl group-hover:text-white transition-colors"></i>
+        </div>
+        <h3 class="text-xl font-bold mb-4">{{ service.title }}</h3>
+        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">{{ service.description }}</p>
+        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">{{ service.badge }}</span>
+    </div>
+    {% empty %}
+    <p class="text-center text-gray-500 col-span-full">No sub‑services added yet.</p>
+    {% endfor %}
+</div>
             </div>
         </section>
     </main>

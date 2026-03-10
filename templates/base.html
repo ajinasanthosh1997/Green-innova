@@ -18,6 +18,13 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <!-- Favicon links for various devices and browsers -->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicon/apple-touch-icon.png' %}">
+    <link rel="manifest" href="{% static 'assets/img/favicon/site.webmanifest' %}">
+    
     
     {% block extra_css %}{% endblock %}
     
@@ -30,9 +37,9 @@
                     },
                     colors: {
                         primary: {
-                            light: '#34D399',
-                            DEFAULT: '#10B981',
-                            dark: '#059669',
+                            light: '#c8f096',
+                            DEFAULT: '#a3ea50',
+                            dark: '#78b432',
                         },
                         charcoal: '#1F2937',
                     }
@@ -48,7 +55,7 @@
     
     <!-- HEADER -->
     <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-        <!-- Top Info Bar – DYNAMIC -->
+        <!-- Top Info Bar – DYNAMIC (ensure these variables are provided by a context processor) -->
         <div class="bg-charcoal text-white/60 py-2 border-b border-white/5 backdrop-blur-md">
             <div class="container mx-auto px-4 lg:px-12 xl:px-24 flex justify-between items-center text-[10px] md:text-xs font-bold uppercase tracking-widest">
                 <div class="flex items-center space-x-6">
@@ -81,57 +88,84 @@
             </div>
         </div>
 
-        <!-- Main Navigation (unchanged) -->
+        <!-- Main Navigation -->
         <nav class="container mx-auto px-4 lg:px-12 xl:px-24 py-4 flex items-center justify-between">
             <a href="{% url 'home' %}" class="flex items-center space-x-2 group">
                 <img src="{% static 'assets/logo-w.png' %}" alt="Green Innova" class="h-12 w-auto transition-all duration-300" id="main-logo">
             </a>
+
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center space-x-8 text-white transition-colors duration-300" id="nav-links">
-                <a href="{% url 'home' %}" class="font-medium text-primary transition-colors">Home</a>
+                <a href="{% url 'home' %}" class="font-medium hover:text-primary transition-colors flex items-center gap-2 {% if request.resolver_match.url_name == 'home' %}text-primary{% endif %}">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
                 <!-- Services Dropdown -->
                 <div class="relative group">
-                    <button class="flex items-center space-x-1 font-medium hover:text-primary transition-colors">
+                    <button class="flex items-center space-x-2 font-medium hover:text-primary transition-colors">
+                        <i class="fas fa-cogs"></i>
                         <span>Services</span>
                         <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
-                    <div class="absolute left-0 mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 glass-dark rounded-2xl shadow-xl overflow-hidden py-2 border border-white/10 text-white">
-                        <a href="{% url 'renewable_energy' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-gray-100/50 last:border-0">
+                    <div class="absolute left-0 mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 bg-charcoal/90 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden py-2 border border-white/10 text-white">
+                        <a href="{% url 'renewable_energy' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-white/10 last:border-0">
                             <i class="fas fa-solar-panel text-primary w-5 text-center"></i>
                             <span class="font-medium">Renewable Energy</span>
                         </a>
-                        <a href="{% url 'energy_efficiency' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-gray-100/50 last:border-0">
+                        <a href="{% url 'exterior_insulation' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-white/10 last:border-0">
+                            <i class="fas fa-layer-group text-primary w-5 text-center"></i>
+                            <span class="font-medium">Exterior Insulation</span>
+                        </a>
+                        <a href="{% url 'energy_efficiency' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-white/10 last:border-0">
                             <i class="fas fa-leaf text-primary w-5 text-center"></i>
                             <span class="font-medium">Energy Efficiency</span>
                         </a>
-                        <a href="{% url 'building_construction' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-gray-100/50 last:border-0">
+                        <a href="{% url 'building_construction' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-white/10 last:border-0">
                             <i class="fas fa-building text-primary w-5 text-center"></i>
                             <span class="font-medium">Building & Construction</span>
                         </a>
-                        <a href="{% url 'industrial_services' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-gray-100/50 last:border-0">
+                        <a href="{% url 'industrial_services' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-white/10 last:border-0">
                             <i class="fas fa-industry text-primary w-5 text-center"></i>
                             <span class="font-medium">Industrial Services</span>
                         </a>
-                        <a href="{% url 'academy' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-gray-100/50 last:border-0">
+                        <a href="{% url 'academy' %}" class="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 hover:text-primary transition-colors border-b border-white/10 last:border-0">
                             <i class="fas fa-graduation-cap text-primary w-5 text-center"></i>
                             <span class="font-medium">Green Innova Academy</span>
                         </a>
                     </div>
                 </div>
-                <a href="{% url 'about' %}" class="font-medium hover:text-primary transition-colors">About Us</a>
-                <a href="{% url 'projects' %}" class="font-medium hover:text-primary transition-colors">Projects</a>
-                <a href="{% url 'news' %}" class="font-medium hover:text-primary transition-colors">News</a>
-                <a href="{% url 'contact' %}" class="bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary-dark transition-all shadow-lg hover:shadow-primary/25 border-2 border-transparent">Contact Us</a>
+                <a href="{% url 'about' %}" class="font-medium hover:text-primary transition-colors flex items-center gap-2 {% if request.resolver_match.url_name == 'about' %}text-primary{% endif %}">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="{% url 'team' %}" class="font-medium hover:text-primary transition-colors flex items-center gap-2 {% if request.resolver_match.url_name == 'team' %}text-primary{% endif %}">
+                    <i class="fas fa-users"></i>
+                    <span>Team</span>
+                </a>
+                <a href="{% url 'projects' %}" class="font-medium hover:text-primary transition-colors flex items-center gap-2 {% if request.resolver_match.url_name == 'projects' %}text-primary{% endif %}">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects</span>
+                </a>
+                <a href="{% url 'news' %}" class="font-medium hover:text-primary transition-colors flex items-center gap-2 {% if request.resolver_match.url_name == 'news' %}text-primary{% endif %}">
+                    <i class="fas fa-newspaper"></i>
+                    <span>News</span>
+                </a>
+                <a href="{% url 'contact' %}" class="bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary-dark transition-all shadow-lg hover:shadow-primary/25 border-2 border-transparent flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact Us</span>
+                </a>
             </div>
 
             <!-- Mobile Toggle -->
             <button id="menu-toggle" class="lg:hidden text-white focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
             </button>
         </nav>
     </header>
     
-    <!-- Mobile Menu Wrapper (unchanged except social links) -->
+    <!-- Mobile Menu Wrapper (updated with correct close button and active states) -->
     <div id="mobile-menu" class="fixed inset-0 bg-charcoal z-[100] translate-x-full transition-transform duration-500 lg:hidden flex flex-col">
         <div class="flex items-center justify-between p-6 border-b border-white/10">
             <img src="{% static 'assets/logo-w.png' %}" alt="Green Innova" class="h-10 w-auto">
@@ -140,25 +174,42 @@
         
         <div class="flex-1 overflow-y-auto px-8 py-10">
             <nav class="flex flex-col space-y-8">
-                <a href="{% url 'home' %}" class="text-primary text-2xl font-bold tracking-tight">Home</a>
-                <a href="{% url 'about' %}" class="text-white text-2xl font-bold tracking-tight hover:text-primary transition-colors">About Us</a>
+                <a href="{% url 'home' %}" class="text-2xl font-bold tracking-tight {% if request.resolver_match.url_name == 'home' %}text-primary{% else %}text-white hover:text-primary{% endif %} flex items-center gap-3 transition-colors">
+                    <i class="fas fa-home text-xl"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{% url 'about' %}" class="text-2xl font-bold tracking-tight {% if request.resolver_match.url_name == 'about' %}text-primary{% else %}text-white hover:text-primary{% endif %} flex items-center gap-3 transition-colors">
+                    <i class="fas fa-info-circle text-xl"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="{% url 'team' %}" class="text-2xl font-bold tracking-tight {% if request.resolver_match.url_name == 'team' %}text-primary{% else %}text-white hover:text-primary{% endif %} flex items-center gap-3 transition-colors">
+                    <i class="fas fa-users text-xl"></i>
+                    <span>Team</span>
+                </a>
                 
                 <!-- Collapsible Services -->
                 <div class="flex flex-col">
                     <button id="mobile-services-toggle" class="flex items-center justify-between w-full text-white text-2xl font-bold tracking-tight hover:text-primary transition-colors focus:outline-none">
-                        <span>Services</span>
+                        <div class="flex items-center gap-3">
+                            <i class="fas fa-cogs text-xl"></i>
+                            <span>Services</span>
+                        </div>
                         <i id="mobile-services-icon" class="fas fa-chevron-down text-lg transition-transform duration-300"></i>
                     </button>
                     <div id="mobile-services-content" class="hidden flex flex-col space-y-4 mt-6 pl-4 border-l-2 border-primary/30">
                         <a href="{% url 'renewable_energy' %}" class="text-white/80 text-lg hover:text-primary transition-colors">Renewable Energy</a>
+                        <a href="{% url 'exterior_insulation' %}" class="text-white/80 text-lg hover:text-primary transition-colors">Exterior Insulation</a>
                         <a href="{% url 'energy_efficiency' %}" class="text-white/80 text-lg hover:text-primary transition-colors">Energy Efficiency</a>
                         <a href="{% url 'building_construction' %}" class="text-white/80 text-lg hover:text-primary transition-colors">Building & Construction</a>
                         <a href="{% url 'industrial_services' %}" class="text-white/80 text-lg hover:text-primary transition-colors">Industrial Services</a>
-                        <a href="{% url 'academy' %}" class="text-white/80 text-lg hover:text-primary transition-colors font-semibold text-primary">Green Innova Academy</a>
+                        <a href="{% url 'academy' %}" class="text-white/80 text-lg hover:text-primary transition-colors">Green Innova Academy</a>
                     </div>
                 </div>
 
-                <a href="{% url 'projects' %}" class="text-white text-2xl font-bold tracking-tight hover:text-primary transition-colors">Projects</a>
+                <a href="{% url 'projects' %}" class="text-2xl font-bold tracking-tight {% if request.resolver_match.url_name == 'projects' %}text-primary{% else %}text-white hover:text-primary{% endif %} flex items-center gap-3 transition-colors">
+                    <i class="fas fa-project-diagram text-xl"></i>
+                    <span>Projects</span>
+                </a>
                 
                 <!-- Media Section -->
                 <div class="flex flex-col space-y-4 pt-4 border-t border-white/10">
@@ -176,8 +227,14 @@
                     </div>
                 </div>
 
-                <a href="{% url 'news' %}" class="text-white text-2xl font-bold tracking-tight hover:text-primary transition-colors">News</a>
-                <a href="{% url 'contact' %}" class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-center shadow-lg shadow-primary/20">Contact Us</a>
+                <a href="{% url 'news' %}" class="text-2xl font-bold tracking-tight {% if request.resolver_match.url_name == 'news' %}text-primary{% else %}text-white hover:text-primary{% endif %} flex items-center gap-3 transition-colors">
+                    <i class="fas fa-newspaper text-xl"></i>
+                    <span>News</span>
+                </a>
+                <a href="{% url 'contact' %}" class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-center shadow-lg shadow-primary/20 flex items-center justify-center gap-3">
+                    <i class="fas fa-envelope text-xl"></i>
+                    <span>Contact Us</span>
+                </a>
             </nav>
         </div>
     </div>
@@ -189,7 +246,8 @@
     </main>
 
     <!-- FOOTER – DYNAMIC -->
-    <footer id="main-footer" class="dark-gradient text-white pt-24 pb-12 relative overflow-hidden">
+    <footer id="main-footer" class="bg-charcoal text-white pt-24 pb-12 relative overflow-hidden">
+        <!-- Decoration Gradients -->
         <div class="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full"></div>
         <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 blur-[100px] rounded-full"></div>
 
@@ -198,27 +256,16 @@
                 <!-- Company Info -->
                 <div class="space-y-6">
                     <a href="{% url 'home' %}" class="flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-primary flex items-center justify-center rounded-lg">
-                            <span class="text-white font-bold text-xl">GI</span>
-                        </div>
-                        <span class="text-xl font-bold tracking-tight">GREEN <span class="text-primary">INNOVA</span></span>
+                        <img src="{% static 'assets/logo-w.png' %}" alt="Green Innova" class="h-10 w-auto">
                     </a>
                     <p class="text-gray-400 leading-relaxed">
                         Leading the transition to sustainable energy through innovation, education, and excellence in engineering.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="{{ social_links.linkedin }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="{{ social_links.instagram }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="{{ social_links.facebook }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="{{ social_links.youtube }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-youtube"></i>
-                        </a>
+                        <a href="{{ social_links.linkedin }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="{{ social_links.instagram }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a href="{{ social_links.facebook }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{{ social_links.youtube }}" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
 
@@ -230,6 +277,7 @@
                     </h4>
                     <ul class="space-y-4 text-gray-400">
                         <li><a href="{% url 'about' %}" class="hover:text-primary transition-colors">About Us</a></li>
+                        <li><a href="{% url 'team' %}" class="hover:text-primary transition-colors">Team</a></li>
                         <li><a href="{% url 'projects' %}" class="hover:text-primary transition-colors">Projects</a></li>
                         <li><a href="{% url 'academy' %}" class="hover:text-primary transition-colors">Academy</a></li>
                         <li><a href="{% url 'news' %}" class="hover:text-primary transition-colors">News</a></li>
@@ -245,10 +293,11 @@
                     </h4>
                     <ul class="space-y-4 text-gray-400">
                         <li><a href="{% url 'renewable_energy' %}" class="hover:text-primary transition-colors">Renewable Energy</a></li>
+                        <li><a href="{% url 'exterior_insulation' %}" class="hover:text-primary transition-colors">Exterior Insulation</a></li>
                         <li><a href="{% url 'energy_efficiency' %}" class="hover:text-primary transition-colors">Energy Efficiency</a></li>
                         <li><a href="{% url 'building_construction' %}" class="hover:text-primary transition-colors">Building & Construction</a></li>
                         <li><a href="{% url 'industrial_services' %}" class="hover:text-primary transition-colors">Industrial Services</a></li>
-                        <li><a href="{% url 'calculator' %}" class="hover:text-primary transition-colors">Solar Calculator</a></li>
+                        <li><a href="{% url 'academy' %}" class="hover:text-primary transition-colors">Academy</a></li>
                     </ul>
                 </div>
 
@@ -282,12 +331,27 @@
         </div>
     </footer>
 
+   
+
     <!-- JS Scripts -->
     <script src="{% static 'assets/js/main.js' %}"></script>
     <script src="{% static 'assets/js/calculator.js' %}"></script>
-    
-    {% block extra_js %}{% endblock %}
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6992c85d1fd06e1c36a87917/1jhiltcb1';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+    {% block extra_js %}
+    {% endblock %}
 
-    {% include "chatwidget/widget.html" %}
+
 </body>
 </html>

@@ -81,55 +81,18 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Internal Energy Audit -->
+                    {% for service in sub_services %}
                     <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
                         <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-search-dollar text-primary text-2xl group-hover:text-white transition-colors"></i>
+                            <i class="fas {{ service.icon }} text-primary text-2xl group-hover:text-white transition-colors"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">Internal Energy Audit</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Rigorous site-wide assessments using thermal imaging and power logging to identify hidden waste.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">ISO 50001 Aligned</span>
+                        <h3 class="text-xl font-bold mb-4">{{ service.title }}</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">{{ service.description }}</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">{{ service.badge }}</span>
                     </div>
-
-                    <!-- Energy Management Solutions -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-microchip text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Management Solutions</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Deployment of real-time monitoring hardware and AI-driven control algorithms for building HVAC and lighting.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">IoT Enabled</span>
-                    </div>
-
-                    <!-- Certification Readiness -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-tasks text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Certification Readiness</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Pre-audit gap analysis and technical documentation prep for ISO, LEED, or Estidama compliance.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Zero-Gap Goal</span>
-                    </div>
-
-                    <!-- Certification Support -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-user-shield text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Certification Support</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">End-to-end liaison with certifying bodies and implementation of required technical upgrades.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Expert Liaison</span>
-                    </div>
-
-                    <!-- Periodic Energy Reporting -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-chart-bar text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Periodic Reporting</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Automated and manual energy consumption reports (weekly/monthly) for stakeholder review.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Data-Driven</span>
-                    </div>
+                    {% empty %}
+                    <p class="text-center text-gray-500 col-span-full">No sub‑services added yet.</p>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -168,20 +131,20 @@
         {% csrf_token %}
         
         <input type="text" name="name" required 
-               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3" 
+               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black" 
                placeholder="Full Name">
         
         <input type="email" name="email" required 
-               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3" 
+               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black" 
                placeholder="Email Address">
         
         <!-- ✅ ADD PHONE FIELD (required) -->
         <input type="tel" name="phone" required 
-               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3" 
+               class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black" 
                placeholder="Phone Number">
         
         <textarea name="message" rows="4" required 
-                  class="w-full bg-white text-black border border-gray-200 rounded-xl px-4 py-3" 
+                  class="w-full bg-white text-black border border-gray-200 rounded-xl px-4 py-3 text-black" 
                   placeholder="Tell us about your building type..."></textarea>
         
         <button type="submit" 
@@ -220,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('service', 'efficiency');
 
         try {
-            const response = await fetch('/api/service-enquiry/', {
+            const response = await fetch('{% url "service_enquiry_api" %}', {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': getCSRFToken(),
@@ -235,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // ✅ Success
                 feedback.classList.remove('hidden', 'bg-red-100', 'text-red-600');
                 feedback.classList.add('bg-green-100', 'text-green-600');
-                feedback.textContent = result.message; // "Your enquiry has been sent..."
+                feedback.textContent = result.message;
                 form.reset();
             } else {
                 // ❌ Validation or server error

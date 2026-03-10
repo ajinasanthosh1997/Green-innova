@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <!-- ✅ NEW: Phone field (optional) -->
+    <!-- Phone field (optional) -->
     <div class="space-y-2">
         <label class="text-sm font-bold text-gray-700">Phone (optional)</label>
         <input type="tel" name="phone" 
@@ -86,63 +86,60 @@
     </button>
 </form>
 
-<!-- ✅ Feedback container -->
+<!-- Feedback container -->
 <div id="form-feedback" class="hidden mt-6 p-4 rounded-xl text-center font-bold"></div>
         </div>
     </section>
 
- <!-- ========== 🗺️ ADDRESS‑BASED MAP – AUTO UPDATES FROM ADMIN ========== -->
-<section class="container mx-auto px-4 lg:px-12 xl:px-24 mb-24">
-    <div class="w-full h-[500px] bg-gray-100 rounded-[40px] relative overflow-hidden border border-gray-200 shadow-xl">
-        {% if contact_address %}
-            {# ✅ Google Maps embed using the address – works every time #}
-            <iframe 
-                class="absolute inset-0 w-full h-full"
-                frameborder="0"
-                style="border:0;"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q={{ contact_address|urlencode }}&output=embed"
-                allowfullscreen
-                loading="lazy">
-            </iframe>
+    <!-- Address‑based Map – auto updates from admin -->
+    <section class="container mx-auto px-4 lg:px-12 xl:px-24 mb-24">
+        <div class="w-full h-[500px] bg-gray-100 rounded-[40px] relative overflow-hidden border border-gray-200 shadow-xl">
+            {% if contact_address %}
+                <iframe 
+                    class="absolute inset-0 w-full h-full"
+                    frameborder="0"
+                    style="border:0;"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q={{ contact_address|urlencode }}&output=embed"
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
 
-            {# 📍 Elegant overlay #}
-            <div class="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-80 bg-white/95 backdrop-blur-md px-6 py-5 rounded-2xl shadow-2xl border border-white/50">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-map-pin text-primary text-2xl"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-charcoal text-lg mb-1">Our Location</h4>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-2">{{ contact_address|linebreaksbr }}</p>
-                        <a href="https://www.google.com/maps?q={{ contact_address|urlencode }}" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors">
-                            Open in Google Maps
-                            <i class="fas fa-external-link-alt text-xs"></i>
-                        </a>
+                <div class="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-80 bg-white/95 backdrop-blur-md px-6 py-5 rounded-2xl shadow-2xl border border-white/50">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-map-pin text-primary text-2xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-charcoal text-lg mb-1">Our Location</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-2">{{ contact_address|linebreaksbr }}</p>
+                            <a href="https://www.google.com/maps?q={{ contact_address|urlencode }}" 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               class="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors">
+                                Open in Google Maps
+                                <i class="fas fa-external-link-alt text-xs"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        {% else %}
-            {# 🚫 No address configured – show friendly placeholder #}
-            <div class="absolute inset-0 flex items-center justify-center">
-                <div class="text-center px-6">
-                    <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-map-marked-alt text-4xl text-gray-400"></i>
+            {% else %}
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center px-6">
+                        <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-map-marked-alt text-4xl text-gray-400"></i>
+                        </div>
+                        <p class="text-gray-500 font-bold text-lg mb-2">Map Not Configured</p>
+                        <p class="text-gray-400 text-sm max-w-sm">
+                            Please add an address in the 
+                            <span class="font-semibold text-primary">Site Configuration</span> admin panel.
+                        </p>
                     </div>
-                    <p class="text-gray-500 font-bold text-lg mb-2">Map Not Configured</p>
-                    <p class="text-gray-400 text-sm max-w-sm">
-                        Please add an address in the 
-                        <span class="font-semibold text-primary">Site Configuration</span> admin panel.
-                    </p>
                 </div>
-            </div>
-        {% endif %}
-    </div>
-</section>
+            {% endif %}
+        </div>
+    </section>
 </main>
 {% endblock %}
 
@@ -159,12 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Clear previous feedback
         feedback.className = 'hidden mt-6 p-4 rounded-xl text-center font-bold';
         feedback.textContent = '';
 
         const formData = new FormData(form);
-        // No 'service' field – this is a general contact message
 
         try {
             const response = await fetch('/api/contact/', {
@@ -179,13 +174,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
 
             if (response.ok && result.success) {
-                // ✅ Success
                 feedback.classList.remove('hidden', 'bg-red-100', 'text-red-600');
                 feedback.classList.add('bg-green-100', 'text-green-600');
                 feedback.textContent = result.message;
                 form.reset();
             } else {
-                // ❌ Validation or server error
                 let errorMsg = result.message || 'Please correct the errors below.';
                 if (result.data) {
                     const firstField = Object.keys(result.data)[0];

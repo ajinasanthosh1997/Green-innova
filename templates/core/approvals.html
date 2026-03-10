@@ -4,123 +4,65 @@
 {% block title %}Approvals & Certificates | Green Innova{% endblock %}
 
 {% block content %}
-    <main class="pb-20">
-        <!-- HERO SECTION -->
-        <section class="relative pt-32 pb-20 bg-charcoal text-white overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <div class="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/80 to-transparent"></div>
-                <div class="absolute right-0 bottom-0 w-1/2 h-full bg-primary/10 blur-[120px] rounded-full"></div>
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 bg-charcoal text-white overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/80 to-transparent"></div>
+            <div class="absolute right-0 bottom-0 w-1/2 h-full bg-primary/10 blur-[120px] rounded-full"></div>
+        </div>
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10">
+            <div class="max-w-3xl">
+                <span class="inline-block px-4 py-1 rounded-full bg-primary/20 text-primary font-bold text-sm uppercase tracking-widest mb-6 border border-primary/30">Compliance & Excellence</span>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 italic">Approvals & <span class="text-primary">Certificates</span></h1>
+                <p class="text-xl text-gray-400 max-w-2xl leading-relaxed">
+                    Our commitment to quality, environment, and industrial standards is backed by world-recognized certifications and rigorous technical approvals.
+                </p>
             </div>
-            <div class="container mx-auto px-4 lg:px-12 xl:px-24 relative z-10">
-                <div class="max-w-3xl">
-                    <span class="inline-block px-4 py-1 rounded-full bg-primary/20 text-primary font-bold text-sm uppercase tracking-widest mb-6 border border-primary/30">Compliance & Excellence</span>
-                    <h1 class="text-5xl md:text-6xl font-bold mb-6 italic">Approvals & <span class="text-primary">Certificates</span></h1>
-                    <p class="text-xl text-gray-400 max-w-2xl leading-relaxed">
-                        Our commitment to quality, environment, and industrial standards is backed by world-recognized certifications and rigorous technical approvals.
-                    </p>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CERTIFICATES GRID -->
-        <section class="py-20">
-            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- ISO 9001 -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all group">
-                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-certificate text-primary text-2xl group-hover:text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">ISO 9001:2015</h3>
-                        <p class="text-gray-600 mb-6">Quality Management Systems specialized in solar engineering, sustainable construction, and industrial energy solutions.</p>
-                        <div class="flex items-center text-sm font-bold text-primary italic uppercase tracking-wider">
-                            <span>Status: Verified</span>
-                            <i class="fas fa-check-circle ml-2"></i>
-                        </div>
+    <!-- CERTIFICATES GRID (DYNAMIC) -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for cert in certificates %}
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                        <i class="fas {{ cert.icon }} text-primary text-2xl group-hover:text-white"></i>
                     </div>
-
-                    <!-- ISO 14001 -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all group">
-                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-leaf text-primary text-2xl group-hover:text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">ISO 14001:2015</h3>
-                        <p class="text-gray-600 mb-6">Environmental Management highlighting our commitment to sustainable workflows and eco-friendly energy implementations.</p>
-                        <div class="flex items-center text-sm font-bold text-primary italic uppercase tracking-wider">
-                            <span>Status: Active</span>
-                            <i class="fas fa-check-circle ml-2"></i>
-                        </div>
-                    </div>
-
-                    <!-- LEED Platinum -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all group">
-                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-building text-primary text-2xl group-hover:text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">LEED Platinum</h3>
-                        <p class="text-gray-600 mb-6">Leadership in Energy and Environmental Design, recognizing our excellence in high-performance green building solutions.</p>
-                        <div class="flex items-center text-sm font-bold text-primary italic uppercase tracking-wider">
-                            <span>Status: Certified</span>
-                            <i class="fas fa-check-circle ml-2"></i>
-                        </div>
-                    </div>
-
-                    <!-- SOLAR PV APPROVAL -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all group">
-                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-sun text-primary text-2xl group-hover:text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">Solar PV Tier-1</h3>
-                        <p class="text-gray-600 mb-6">Approved Tier-1 contractor for large-scale solar photovoltaic installations and grid-tied systems integration.</p>
-                        <div class="flex items-center text-sm font-bold text-primary italic uppercase tracking-wider">
-                            <span>ID: GI-SOL-9921</span>
-                            <i class="fas fa-shield-alt ml-2"></i>
-                        </div>
-                    </div>
-
-                    <!-- HSEQ EXCELLENCE -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all group">
-                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-hard-hat text-primary text-2xl group-hover:text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">HSEQ Excellence</h3>
-                        <p class="text-gray-600 mb-6">Health, Safety, Environment, and Quality compliance certificate for industrial services and site-wide operations.</p>
-                        <div class="flex items-center text-sm font-bold text-primary italic uppercase tracking-wider">
-                            <span>Score: 98%</span>
-                            <i class="fas fa-star ml-2"></i>
-                        </div>
-                    </div>
-
-                    <!-- TECH INNOVATION AWARD -->
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-primary/20 transition-all group">
-                        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-microchip text-primary text-2xl group-hover:text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">Tech Innovation</h3>
-                        <p class="text-gray-600 mb-6">Approved innovator for smart grid control systems and decentralized energy management software.</p>
-                        <div class="flex items-center text-sm font-bold text-primary italic uppercase tracking-wider">
-                            <span>Year: 2025</span>
-                            <i class="fas fa-trophy ml-2"></i>
-                        </div>
+                    <h3 class="text-2xl font-bold mb-4">{{ cert.title }}</h3>
+                    <p class="text-gray-600 mb-6">{{ cert.description }}</p>
+                    <div class="flex items-center text-sm font-bold text-primary italic uppercase tracking-wider">
+                        {% if cert.status_label and cert.status_value %}
+                            <span>{{ cert.status_label }}: {{ cert.status_value }}</span>
+                        {% elif cert.status_value %}
+                            <span>{{ cert.status_value }}</span>
+                        {% endif %}
+                        {% if cert.badge_icon %}
+                            <i class="fas {{ cert.badge_icon }} ml-2"></i>
+                        {% endif %}
                     </div>
                 </div>
+                {% empty %}
+                <p class="col-span-full text-center text-gray-400">No certificates added yet.</p>
+                {% endfor %}
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CALL TO ACTION -->
-        <section class="py-20 bg-primary/5">
-            <div class="container mx-auto px-4 lg:px-12 xl:px-24">
-                <div class="max-w-4xl mx-auto text-center">
-                    <h2 class="text-4xl font-bold mb-8">Need Detailed Documentation?</h2>
-                    <p class="text-xl text-gray-600 mb-10 italic">Our full compliance reports and technical brochures are available for verified partners and government entities.</p>
-                    <a href="{% url 'downloads' %}" class="inline-flex items-center bg-primary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-primary-dark transition-all shadow-xl">
-                        <span>Go to Downloads</span>
-                        <i class="fas fa-arrow-right ml-3"></i>
-                    </a>
-                </div>
+    <!-- CALL TO ACTION -->
+    <section class="py-20 bg-primary/5">
+        <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-8">Need Detailed Documentation?</h2>
+                <p class="text-xl text-gray-600 mb-10 italic">Our full compliance reports and technical brochures are available for verified partners and government entities.</p>
+                <a href="{% url 'downloads' %}" class="inline-flex items-center bg-primary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-primary-dark transition-all shadow-xl">
+                    <span>Go to Downloads</span>
+                    <i class="fas fa-arrow-right ml-3"></i>
+                </a>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 {% endblock %}
 
 {% block extra_js %}

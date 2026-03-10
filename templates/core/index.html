@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Green Innova Home | Sustainable Energy Solutions{% endblock %}
 
+{% block title %}Green Innova Home | Sustainable Energy Solutions{% endblock %}
 
 {% block content %}
     <!-- NEW HERO: SUSTAINABLE INNOVATION SECTION -->
     <section class="min-h-screen flex items-center pt-32 pb-16 lg:pt-28 lg:pb-0 bg-charcoal text-white relative overflow-hidden">
         <!-- Background Video Overlay -->
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <video autoplay loop muted="muted" playsinline class="w-full h-full object-cover">
+        <div class="absolute inset-0 opacity-90 pointer-events-none">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover">
                 <source src="{% static 'assets/gilt/Create_a_seamless_1080p_202602051049.webm' %}" type="video/webm">
             </video>
         </div>
@@ -18,9 +18,14 @@
                 <div class="text-center lg:text-left order-2 lg:order-1">
                     <span class="text-primary font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs mb-6 block">The Future of Energy</span>
                     <h2 class="text-3xl md:text-5xl lg:text-6xl font-black mb-8 leading-tight">Innovating Today for a <br><span class="text-primary">Sustainable Vision.</span></h2>
-                    <p class="text-gray-400 text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
+                    <p class="text-white text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0">
                         Green Innova Home bridges the gap between advanced engineering and environmental stewardship. We deliver end-to-end renewable ecosystems that empower communities and decarbonize industries.
                     </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 mb-10">
+                        <button id="hero-get-started" class="bg-primary text-white px-10 py-4 rounded-xl font-black uppercase tracking-widest hover:bg-white hover:text-charcoal transition-all shadow-xl shadow-primary/20">
+                            Get Started
+                        </button>
+                    </div>
                     <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-6">
                         <div class="flex items-center justify-center lg:justify-start gap-4">
                             <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-primary shrink-0">
@@ -39,8 +44,8 @@
                 <div class="relative group order-1 lg:order-2">
                     <div class="absolute -inset-4 bg-primary/20 rounded-[40px] md:rounded-[56px] blur-2xl opacity-50 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700"></div>
                     <div class="relative rounded-[32px] md:rounded-[48px] overflow-hidden border border-white/10 shadow-3xl max-w-lg mx-auto lg:max-w-none">
-                        <video autoplay loop muted="muted" playsinline class="w-full h-auto">
-                            <source src="{% static 'assets/gilt/Create_a_seamless_1080p_202602051049.webm' %}" type="video/webm">
+                        <video autoplay loop muted playsinline class="w-full h-auto">
+                            <source src="{% static 'assets/gilt/newone.mp4' %}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -63,20 +68,29 @@
             </div>
 
             <!-- Modern Tab Selection -->
-            <div class="flex justify-center mb-16">
-                <div class="inline-flex p-1.5 bg-white border border-gray-100 rounded-2xl shadow-xl overflow-hidden glass-effect">
-                    <button class="tab-btn active px-8 py-3.5 rounded-xl font-bold transition-all text-sm uppercase tracking-wider" data-tab="homes">For Homes</button>
-                    <button class="tab-btn px-8 py-3.5 rounded-xl font-bold transition-all text-sm uppercase tracking-wider text-gray-400 hover:text-charcoal" data-tab="business">Business & Industry</button>
-                    <button class="tab-btn px-8 py-3.5 rounded-xl font-bold transition-all text-sm uppercase tracking-wider text-gray-400 hover:text-charcoal" data-tab="academy">Academy</button>
+            <div class="flex justify-center mb-16 px-4">
+                <div class="flex p-1.5 bg-white border border-gray-100 rounded-2xl shadow-xl overflow-x-auto no-scrollbar glass-effect max-w-full">
+                    <button class="tab-btn active px-4 md:px-8 py-3 md:py-3.5 rounded-xl font-bold transition-all text-xs md:text-sm uppercase tracking-wider flex items-center justify-center gap-2 whitespace-nowrap" data-tab="homes">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </button>
+                    <button class="tab-btn px-4 md:px-8 py-3 md:py-3.5 rounded-xl font-bold transition-all text-xs md:text-sm uppercase tracking-wider text-gray-400 hover:text-charcoal flex items-center justify-center gap-2 whitespace-nowrap" data-tab="business">
+                        <i class="fas fa-building"></i>
+                        <span>Business & Industry</span>
+                    </button>
+                    <button class="tab-btn px-4 md:px-8 py-3 md:py-3.5 rounded-xl font-bold transition-all text-xs md:text-sm uppercase tracking-wider text-gray-400 hover:text-charcoal flex items-center justify-center gap-2 whitespace-nowrap" data-tab="academy">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Academy</span>
+                    </button>
                 </div>
             </div>
 
             <!-- Tab Contents Container -->
-            <div id="tab-content-container" class="relative min-h-[500px]">
+            <div id="tab-content-container" class="relative">
                 
                 <!-- 1. For Homes Tab -->
                 <div class="tab-content block" id="tab-homes">
-                    <div class="grid lg:grid-cols-12 gap-10 items-stretch">
+                    <div class="grid lg:grid-cols-12 gap-10 items-start">
                         <!-- Home Content Cards -->
                         <div class="lg:col-span-12 xl:col-span-7 space-y-6">
                             <div class="grid md:grid-cols-2 gap-6">
@@ -100,48 +114,33 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="bg-primary/5 border border-primary/10 rounded-3xl p-8 flex items-center gap-6">
-                                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-primary">
-                                    <i class="fas fa-info-circle"></i>
-                                </div>
-                                <p class="text-sm text-charcoal/70 leading-relaxed font-medium">All home installations include a 25-year performance guarantee and 24/7 digital monitoring via our proprietary app.</p>
-                            </div>
                         </div>
 
                         <!-- Professional Energy Dashboard (Calculator) -->
                         <div class="lg:col-span-12 xl:col-span-5 relative">
                             <div class="sticky top-28 p-10 rounded-[48px] bg-charcoal text-white shadow-2xl h-full border border-white/5 overflow-hidden group">
                                 <div class="relative z-10 h-full flex flex-col text-center">
-                                    <div class="mb-8">
-                                        <p class="text-xs text-gray-400 font-bold uppercase tracking-[0.2em] mb-4">You Can Save Upto</p>
-                                        <h1 class="text-7xl font-black text-primary mb-6" id="home-savings-perc">90%</h1>
-                                        <p class="text-lg font-bold text-gray-300">What is your Monthly Average Energy Bill?</p>
+                                    <div class="mb-4 text-center">
+                                        <h3 class="text-3xl font-black text-white mb-2">Business Inquiry</h3>
+                                        <p class="text-gray-400 font-bold uppercase tracking-widest text-xs">Tailored solutions for your industry</p>
                                     </div>
 
-                                    <div class="space-y-10 flex-grow">
-                                        <div class="space-y-6">
-                                            <div class="relative pt-1">
-                                                <input type="range" min="100" max="10000" step="100" value="700" class="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-primary" id="home-bill-range">
-                                                
-                                                <!-- Stylized Loop/Swoosh (Mockup specific) -->
-                                                <div class="absolute -bottom-8 right-0 w-16 h-16 opacity-20 pointer-events-none">
-                                                    <svg viewBox="0 0 100 100" class="w-full h-full fill-white">
-                                                        <path d="M10,50 Q40,10 70,50 T130,50" fill="none" stroke="currentColor" stroke-width="8" opacity="0.5"/>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="pt-4">
-                                                <h2 class="text-4xl font-black text-white" id="home-bill-value">700 AED</h2>
-                                            </div>
+                                    <!-- Lead Form Inputs -->
+                                    <div class="space-y-4 pt-6 mt-6 border-t border-white/10">
+                                        <div class="text-left">
+                                            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-widest">Company Name / Primary Contact</label>
+                                            <input type="text" id="home-lead-name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-white placeholder-gray-600 text-sm" placeholder="e.g. Innova Corp / John Doe">
+                                        </div>
+                                        <div class="text-left">
+                                            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-widest">Phone (With Country Code)</label>
+                                            <input type="tel" id="home-lead-phone" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-white placeholder-gray-600 text-sm" placeholder="+973 XXXX XXXX">
                                         </div>
                                     </div>
 
-                                    <div class="mt-auto pt-10">
-                                        <a href="{% url 'calculator' %}" id="home-calc-cta" class="group/btn flex items-center justify-center gap-3 w-full bg-primary hover:bg-white text-white hover:text-charcoal py-5 rounded-xl font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20">
-                                            <span>Calculate My Savings</span>
-                                        </a>
-                                        <p class="text-center text-[10px] text-gray-500 mt-6 font-bold uppercase tracking-widest italic leading-relaxed">Estimates based on average UAE peak sun hours.</p>
+                                    <div class="mt-auto pt-6">
+                                        <button id="home-calc-cta" class="group/btn flex items-center justify-center gap-3 w-full bg-primary hover:bg-white text-white hover:text-charcoal py-5 rounded-xl font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20">
+                                            <span>Get Started</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +150,7 @@
 
                 <!-- 2. For Business Tab -->
                 <div class="tab-content hidden" id="tab-business">
-                    <div class="grid lg:grid-cols-12 gap-10 items-stretch">
+                    <div class="grid lg:grid-cols-12 gap-10 items-start">
                         <div class="lg:col-span-12 xl:col-span-7 space-y-6">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <a href="{% url 'renewable_energy' %}" class="p-8 rounded-[32px] bg-white border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all group block">
@@ -181,36 +180,27 @@
                         <div class="lg:col-span-12 xl:col-span-5 relative">
                             <div class="sticky top-28 p-10 rounded-[48px] bg-charcoal text-white shadow-2xl h-full border border-white/5 overflow-hidden group">
                                 <div class="relative z-10 h-full flex flex-col text-center">
-                                    <div class="mb-8">
-                                        <p class="text-xs text-gray-400 font-bold uppercase tracking-[0.2em] mb-4">You Can Save Upto</p>
-                                        <h1 class="text-7xl font-black text-primary mb-6" id="biz-savings-perc">90%</h1>
-                                        <p class="text-lg font-bold text-gray-300">What is your Monthly Average Energy Bill?</p>
+                                    <div class="mb-4 text-center">
+                                        <h3 class="text-3xl font-black text-white mb-2">Business Inquiry</h3>
+                                        <p class="text-gray-400 font-bold uppercase tracking-widest text-xs">Tailored solutions for your industry</p>
                                     </div>
 
-                                    <div class="space-y-10 flex-grow">
-                                        <div class="space-y-6">
-                                            <div class="relative pt-1">
-                                                <input type="range" min="1000" max="50000" step="500" value="5000" class="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-primary" id="biz-bill-range">
-                                                
-                                                <!-- Stylized Loop/Swoosh -->
-                                                <div class="absolute -bottom-8 right-0 w-16 h-16 opacity-20 pointer-events-none">
-                                                    <svg viewBox="0 0 100 100" class="w-full h-full fill-white">
-                                                        <path d="M10,50 Q40,10 70,50 T130,50" fill="none" stroke="currentColor" stroke-width="8" opacity="0.5"/>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="pt-4">
-                                                <h2 class="text-4xl font-black text-white" id="biz-bill-value">5,000 AED</h2>
-                                            </div>
+                                    <!-- Lead Form Inputs -->
+                                    <div class="space-y-4 pt-6 mt-6 border-t border-white/10">
+                                        <div class="text-left">
+                                            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-widest">Company Name / Primary Contact</label>
+                                            <input type="text" id="biz-lead-name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-white placeholder-gray-600 text-sm" placeholder="e.g. Innova Corp / John Doe">
+                                        </div>
+                                        <div class="text-left">
+                                            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-widest">Phone (With Country Code)</label>
+                                            <input type="tel" id="biz-lead-phone" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-white placeholder-gray-600 text-sm" placeholder="+973 XXXX XXXX">
                                         </div>
                                     </div>
 
-                                    <div class="mt-auto pt-10">
-                                        <a href="{% url 'calculator' %}" id="biz-calc-cta" class="group/btn flex items-center justify-center gap-3 w-full bg-primary hover:bg-white text-white hover:text-charcoal py-5 rounded-xl font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20">
-                                            <span>Calculate My Savings</span>
-                                        </a>
-                                        <p class="text-center text-[10px] text-gray-500 mt-6 font-bold uppercase tracking-widest italic leading-relaxed">Industrial estimates based on MW-scale system performance.</p>
+                                    <div class="mt-auto pt-6">
+                                        <button id="biz-calc-cta" class="group/btn flex items-center justify-center gap-3 w-full bg-primary hover:bg-white text-white hover:text-charcoal py-5 rounded-xl font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20">
+                                            <span>Get Started</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -220,7 +210,7 @@
 
                 <!-- 3. Academy Tab -->
                 <div class="tab-content hidden" id="tab-academy">
-                    <div class="relative overflow-hidden rounded-[56px] bg-primary group min-h-[450px] flex items-center">
+                    <div class="relative overflow-hidden rounded-[56px] bg-primary group flex items-center">
                         <div class="absolute inset-0 opacity-10 pointer-events-none">
                             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="academy-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#academy-grid)" /></svg>
                         </div>
@@ -267,7 +257,7 @@
 
                 <!-- Right: Isometric Asset -->
                 <div class="relative flex justify-center lg:justify-end order-1 lg:order-2">
-                    <video autoplay loop muted="muted" playsinline class="w-full max-w-[1000px] h-auto mix-blend-multiply">
+                    <video autoplay loop muted playsinline class="w-full max-w-[1000px] h-auto mix-blend-multiply">
                         <source src="{% static 'assets/gilt/home-ani.webm' %}" type="video/webm">
                         Your browser does not support the video tag.
                     </video>
@@ -276,141 +266,435 @@
         </div>
     </section>
 
-    <!-- CLIENTS CAROUSEL -->
-    <section class="py-12 bg-gray-50 overflow-hidden border-y border-gray-100">
-        <div class="container mx-auto px-4 lg:px-12 xl:px-24 mb-8 text-center text-sm font-bold text-gray-400 uppercase tracking-widest">Trusted by Industry Leaders</div>
-        <div class="logo-track flex items-center gap-24 h-20">
-            <!-- Original Items -->
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">ECO-CORP</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">SOLAR-GRID</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">GREEN-WAY</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">POWER-LINK</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">BLUE-WAVE</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">WIND-FLOW</span>
-            <!-- Duplicated for Infinite Loop -->
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">ECO-CORP</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">SOLAR-GRID</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">GREEN-WAY</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">POWER-LINK</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">BLUE-WAVE</span>
-            <span class="text-3xl font-black text-gray-300 opacity-50 grayscale hover:grayscale-0 transition-all cursor-default">WIND-FLOW</span>
+    <!-- CLIENTS SECTION -->
+<section class="py-20 bg-gray-50 border-y border-gray-100">
+    <div class="container mx-auto px-4 lg:px-12 xl:px-24">
+        <div class="mb-12 text-center text-sm font-bold text-gray-400 uppercase tracking-[0.3em]">Trusted by Industry Leaders</div>
+        <div class="flex flex-wrap items-center justify-center gap-12 md:gap-24">
+            {% for client in clients %}
+                {% if client.url %}
+                    <a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" class="text-3xl font-black text-gray-300 opacity-50 hover:opacity-100 hover:text-primary transition-all cursor-pointer">
+                        {{ client.name }}
+                    </a>
+                {% else %}
+                    <span class="text-3xl font-black text-gray-300 opacity-50 hover:opacity-100 hover:text-primary transition-all cursor-default">
+                        {{ client.name }}
+                    </span>
+                {% endif %}
+            {% empty %}
+                <!-- Fallback if no clients added -->
+                <span class="text-gray-400">(Add clients in admin)</span>
+            {% endfor %}
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- PARTNERS SECTION -->
     <section class="py-24 bg-white">
         <div class="container mx-auto px-4 lg:px-12 xl:px-24">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div class="max-w-xl">
-                    <h2 class="text-4xl font-bold text-charcoal mb-4">Strategic Partners</h2>
-                    <p class="text-gray-600">Collaborating with the world's leading technology providers to ensure top-notch quality and innovation.</p>
-                </div>
-                <a href="{% url 'about' %}#partners" class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary-dark hover:border-primary-dark transition-all">View All Partners</a>
+            <div class="flex flex-col text-center mb-16">
+                <h2 class="text-4xl font-bold text-charcoal mb-4">Strategic Partners</h2>
+                <p class="text-gray-600 max-w-xl mx-auto">Collaborating with the world's leading technology providers to ensure top-notch quality and innovation.</p>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="aspect-video glass-effect flex items-center justify-center rounded-2xl hover:scale-105 transition-transform cursor-pointer group">
-                    <span class="text-gray-400 group-hover:text-primary transition-colors font-bold">TECH PARTNER 1</span>
-                </div>
-                <div class="aspect-video glass-effect flex items-center justify-center rounded-2xl hover:scale-105 transition-transform cursor-pointer group">
-                    <span class="text-gray-400 group-hover:text-primary transition-colors font-bold">TECH PARTNER 2</span>
-                </div>
-                <div class="aspect-video glass-effect flex items-center justify-center rounded-2xl hover:scale-105 transition-transform cursor-pointer group">
-                    <span class="text-gray-400 group-hover:text-primary transition-colors font-bold">TECH PARTNER 3</span>
-                </div>
-                <div class="aspect-video glass-effect flex items-center justify-center rounded-2xl hover:scale-105 transition-transform cursor-pointer group">
-                    <span class="text-gray-400 group-hover:text-primary transition-colors font-bold">TECH PARTNER 4</span>
-                </div>
+            <div class="flex flex-wrap justify-center gap-8">
+                {% for partner in partners %}
+                    <div class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] max-w-sm aspect-video glass-effect flex items-center justify-center rounded-2xl hover:scale-105 transition-transform cursor-pointer group">
+                        {% if partner.url %}<a href="{{ partner.url }}" target="_blank" rel="noopener noreferrer" class="w-full h-full flex items-center justify-center">{% endif %}
+                            {% if partner.logo %}
+                                <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="max-h-16 max-w-[80%] object-contain grayscale group-hover:grayscale-0 transition-all">
+                            {% else %}
+                                <span class="text-gray-400 group-hover:text-primary transition-colors font-bold">{{ partner.name }}</span>
+                            {% endif %}
+                        {% if partner.url %}</a>{% endif %}
+                    </div>
+                {% empty %}
+                    <p class="text-gray-400">(Add partners in admin)</p>
+                {% endfor %}
             </div>
         </div>
     </section>
+
+      <!-- Multi-step Enquiry Modal (UPDATED with phone & location) -->
+    <div id="enquiry-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-charcoal/80 backdrop-blur-sm">
+        <div class="bg-white rounded-[32px] w-full max-w-lg overflow-hidden shadow-2xl animate-fade-in-up">
+            <!-- Modal Header -->
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="text-xl font-black text-charcoal uppercase tracking-widest">Inquiry Details</h3>
+                <button id="close-modal" class="text-gray-400 hover:text-charcoal text-2xl">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-8">
+                <!-- Hidden CSRF token for fetch -->
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                <!-- Step 1: Phone & Location -->
+                <div id="modal-step-location" class="space-y-6">
+                    <div class="text-center mb-8">
+                        <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Step 1 of 4</span>
+                        <h4 class="text-2xl font-black text-charcoal">Your contact details</h4>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="relative">
+                            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-widest">Phone Number</label>
+                            <input type="tel" id="modal-phone-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-charcoal placeholder-gray-400 font-medium" placeholder="+973 XXXX XXXX" required>
+                        </div>
+                        <div class="relative">
+                            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-widest">Location</label>
+                            <input type="text" id="modal-location-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-charcoal placeholder-gray-400 font-medium" placeholder="e.g. Seef, Manama" required>
+                        </div>
+                        <button id="next-to-type" class="w-full bg-gray-400 text-white py-5 rounded-xl font-black uppercase tracking-widest transition-all shadow-xl text-lg">
+                            Next Step
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Type Selection -->
+                <div id="modal-step-type" class="hidden space-y-6">
+                    <div class="text-center mb-8">
+                        <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Step 2 of 4</span>
+                        <h4 class="text-2xl font-black text-charcoal">Select Your Type</h4>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4">
+                        <button class="type-btn group p-6 rounded-2xl border-2 border-gray-100 hover:border-primary hover:bg-primary/5 transition-all text-left flex items-center justify-between" data-type="Residential">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                                    <i class="fas fa-home text-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-black text-charcoal uppercase tracking-wider text-lg">Residential</span>
+                                    <span class="text-gray-500 text-sm">For homes and villas</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-300 group-hover:text-primary transition-colors"></i>
+                        </button>
+                        <button class="type-btn group p-6 rounded-2xl border-2 border-gray-100 hover:border-primary hover:bg-primary/5 transition-all text-left flex items-center justify-between" data-type="Commercial">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                                    <i class="fas fa-building text-xl"></i>
+                                </div>
+                                <div>
+                                    <span class="block font-black text-charcoal uppercase tracking-wider text-lg">Commercial</span>
+                                    <span class="text-gray-500 text-sm">For industry and business</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-300 group-hover:text-primary transition-colors"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3 (Residential): Subsidy Selection -->
+                <div id="modal-step-res-subsidy" class="hidden space-y-6">
+                    <div class="text-center mb-8">
+                        <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Step 3 of 4</span>
+                        <h4 class="text-2xl font-black text-charcoal">Select Subsidy Type</h4>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="subsidy-btn group p-8 rounded-2xl border-2 border-gray-100 hover:border-primary hover:bg-primary/5 transition-all text-center flex flex-col items-center gap-4" data-subsidy="Subsidized">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                <i class="fas fa-check-circle text-2xl"></i>
+                            </div>
+                            <span class="block font-black text-charcoal uppercase tracking-wider text-lg">Subsidized</span>
+                        </button>
+                        <button class="subsidy-btn group p-8 rounded-2xl border-2 border-gray-100 hover:border-primary hover:bg-primary/5 transition-all text-center flex flex-col items-center gap-4" data-subsidy="Non-Subsidized">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center text-gray-500">
+                                <i class="fas fa-times-circle text-2xl"></i>
+                            </div>
+                            <span class="block font-black text-charcoal uppercase tracking-wider text-lg">Non-Subsidized</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3 (Commercial) / Step 4 (Residential): Options -->
+                <div id="modal-step-selection" class="hidden space-y-6">
+                    <div class="text-center mb-8">
+                        <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block" id="selection-step-label">Final Selection</span>
+                        <h4 class="text-2xl font-black text-charcoal">Inquiry Logic</h4>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="com-opt-btn group p-8 rounded-2xl border-2 border-gray-100 hover:border-primary hover:bg-primary/5 transition-all text-center flex flex-col items-center gap-4" data-opt="Bill">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                <i class="fas fa-file-invoice-dollar text-2xl"></i>
+                            </div>
+                            <span class="block font-black text-charcoal uppercase tracking-wider text-lg">Bill</span>
+                        </button>
+                        <button class="com-opt-btn group p-8 rounded-2xl border-2 border-gray-100 hover:border-primary hover:bg-primary/5 transition-all text-center flex flex-col items-center gap-4" data-opt="Unit">
+                            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                <i class="fas fa-bolt text-2xl"></i>
+                            </div>
+                            <span class="block font-black text-charcoal uppercase tracking-wider text-lg">Unit</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4 (Commercial) / Step 5 (Residential): Data Input -->
+                <div id="modal-step-data" class="hidden space-y-6">
+                    <div class="text-center mb-8">
+                        <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Final Step</span>
+                        <h4 class="text-2xl font-black text-charcoal" id="data-title">Enter Inquiry Details</h4>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="relative">
+                            <label class="block text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-widest" id="data-label">Value</label>
+                            <input type="number" id="modal-data-input" class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary/50 outline-none transition-all text-charcoal placeholder-gray-400 font-medium" placeholder="Enter amount">
+                        </div>
+                        <button id="submit-data" class="w-full bg-gray-400 text-white py-5 rounded-xl font-black uppercase tracking-widest transition-all shadow-xl text-lg">
+                            Submit Inquiry
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success Step (optional, but we redirect to results page instead) -->
+                <div id="modal-step-success" class="hidden text-center py-10 space-y-6">
+                    <div class="w-20 h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-check text-4xl"></i>
+                    </div>
+                    <h4 class="text-3xl font-black text-charcoal">Thank You!</h4>
+                    <p class="text-gray-500 text-lg leading-relaxed">Your inquiry has been received. Our team will contact you shortly to discuss your <span id="summary-type" class="text-primary font-bold"></span> project in <span id="summary-place" class="text-primary font-bold"></span>.</p>
+                    <button class="close-modal-success w-full bg-charcoal text-white py-4 rounded-xl font-bold uppercase tracking-widest">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  // Tab functionality for the solutions section
 document.addEventListener('DOMContentLoaded', function() {
+    // ---------- Tab functionality ----------
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
-    
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Remove active class from all buttons
             tabButtons.forEach(btn => {
-                btn.classList.remove('active');
+                btn.classList.remove('active', 'text-primary');
                 btn.classList.add('text-gray-400', 'hover:text-charcoal');
             });
-            
-            // Add active class to clicked button
-            button.classList.add('active');
+            button.classList.add('active', 'text-primary');
             button.classList.remove('text-gray-400', 'hover:text-charcoal');
-            
-            // Hide all tab contents
-            tabContents.forEach(content => {
-                content.classList.add('hidden');
-            });
-            
-            // Show selected tab content
+            tabContents.forEach(content => content.classList.add('hidden'));
             const tabId = button.getAttribute('data-tab');
-            const selectedTab = document.getElementById(`tab-${tabId}`);
-            if (selectedTab) {
-                selectedTab.classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`)?.classList.remove('hidden');
+        });
+    });
+
+    // ---------- Modal elements ----------
+    const modal = document.getElementById('enquiry-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const closeSuccessBtn = document.querySelector('.close-modal-success');
+    const getStartedBtns = document.querySelectorAll('#home-calc-cta, #biz-calc-cta, #hero-get-started');
+
+    const stepLocation = document.getElementById('modal-step-location');
+    const stepType = document.getElementById('modal-step-type');
+    const stepResSubsidy = document.getElementById('modal-step-res-subsidy');
+    const stepSelection = document.getElementById('modal-step-selection');
+    const stepData = document.getElementById('modal-step-data');
+    const stepSuccess = document.getElementById('modal-step-success');
+
+    const nextToType = document.getElementById('next-to-type');
+    const typeBtns = document.querySelectorAll('.type-btn');
+    const subsidyBtns = document.querySelectorAll('.subsidy-btn');
+    const comOptBtns = document.querySelectorAll('.com-opt-btn');
+    const submitData = document.getElementById('submit-data');
+
+    // ---------- Global variables ----------
+    let leadName = '', leadPhone = '', leadLocation = '';
+    let currentType = null;          // 'Residential' or 'Commercial'
+    let currentSubsidy = null;       // only for Residential
+    let currentOption = null;        // 'Bill' or 'Unit'
+
+    // ---------- Helper: redirect to results page ----------
+    function goToResults(leadId, dataValue) {
+        const params = new URLSearchParams({
+            lead_id: leadId,
+            name: leadName,
+            phone: leadPhone,
+            place: leadLocation,          // match results page (uses "place")
+            type: currentType,
+            subsidy: currentSubsidy || '',
+            comOpt: currentOption,
+            units: currentOption === 'Unit' ? dataValue : '',
+            bill: currentOption === 'Bill' ? dataValue : ''
+        });
+        window.location.href = '/calculator-results/?' + params.toString();
+    }
+
+    // ---------- Reset modal to step 1 ----------
+    function resetModalSteps() {
+        document.getElementById('modal-phone-input').value = '';
+        document.getElementById('modal-location-input').value = '';
+        document.getElementById('modal-data-input').value = '';
+        nextToType.classList.remove('bg-primary');
+        nextToType.classList.add('bg-gray-400');
+        submitData.classList.remove('bg-primary');
+        submitData.classList.add('bg-gray-400');
+        [stepLocation, stepType, stepResSubsidy, stepSelection, stepData, stepSuccess].forEach(s => s?.classList.add('hidden'));
+        stepLocation.classList.remove('hidden');
+        currentType = null;
+        currentSubsidy = null;
+        currentOption = null;
+    }
+
+    // ---------- Open modal ----------
+    function openModal() {
+        const activeTab = document.querySelector('.tab-btn.active')?.getAttribute('data-tab') || 'homes';
+        if (activeTab === 'homes') {
+            leadName = document.getElementById('home-lead-name')?.value.trim() || '';
+            leadPhone = document.getElementById('home-lead-phone')?.value.trim() || '';
+        } else if (activeTab === 'business') {
+            leadName = document.getElementById('biz-lead-name')?.value.trim() || '';
+            leadPhone = document.getElementById('biz-lead-phone')?.value.trim() || '';
+        }
+        resetModalSteps();
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    // ---------- Event listeners for opening modal ----------
+    getStartedBtns.forEach(btn => btn.addEventListener('click', openModal));
+    closeModalBtn.addEventListener('click', closeModal);
+    closeSuccessBtn.addEventListener('click', closeModal);
+
+    // ---------- Step 1 → Step 2 (phone & location validation) ----------
+    function validateStep1() {
+        const phone = document.getElementById('modal-phone-input').value.trim();
+        const location = document.getElementById('modal-location-input').value.trim();
+        if (phone && location) {
+            nextToType.classList.remove('bg-gray-400');
+            nextToType.classList.add('bg-primary');
+        } else {
+            nextToType.classList.remove('bg-primary');
+            nextToType.classList.add('bg-gray-400');
+        }
+    }
+    document.getElementById('modal-phone-input').addEventListener('input', validateStep1);
+    document.getElementById('modal-location-input').addEventListener('input', validateStep1);
+
+    nextToType.addEventListener('click', () => {
+    const phone = document.getElementById('modal-phone-input').value.trim();
+    const location = document.getElementById('modal-location-input').value.trim();
+    if (!phone) { alert('Please enter your phone number.'); return; }
+    if (!location) { alert('Please enter a location.'); return; }
+    leadPhone = phone;      // <-- this must be present
+    leadLocation = location;
+    stepLocation.classList.add('hidden');
+    stepType.classList.remove('hidden');
+});
+
+    // ---------- Step 2: Type selection ----------
+    typeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentType = btn.getAttribute('data-type');
+            stepType.classList.add('hidden');
+            if (currentType === 'Residential') {
+                stepResSubsidy.classList.remove('hidden');
+            } else {
+                document.getElementById('selection-step-label').innerText = 'Step 3 of 4';
+                stepSelection.classList.remove('hidden');
             }
         });
     });
-    
-    // Calculator functionality
-    const homeBillRange = document.getElementById('home-bill-range');
-    const homeBillValue = document.getElementById('home-bill-value');
-    const homeSavingsPerc = document.getElementById('home-savings-perc');
-    const homeCalcCta = document.getElementById('home-calc-cta');
-    
-    if (homeBillRange && homeBillValue && homeCalcCta) {
-        homeBillRange.addEventListener('input', function() {
-            const billValue = this.value;
-            homeBillValue.textContent = `${billValue} AED`;
-            
-            // Calculate savings percentage
-            const bill = parseInt(billValue);
-            let savings = 90;
-            if (bill > 5000) savings = 85;
-            if (bill > 8000) savings = 80;
-            homeSavingsPerc.textContent = `${savings}%`;
-            
-            // Update the link with query parameter
-            homeCalcCta.href = `/calculator-results/?bill=${billValue}`;
+
+    // ---------- Step 3 (Residential): Subsidy ----------
+    subsidyBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentSubsidy = btn.getAttribute('data-subsidy');
+            stepResSubsidy.classList.add('hidden');
+            document.getElementById('selection-step-label').innerText = 'Step 4 of 4';
+            stepSelection.classList.remove('hidden');
         });
-        
-        // Initialize the link on page load
-        const initialBill = homeBillRange.value;
-        homeCalcCta.href = `/calculator-results/?bill=${initialBill}`;
-    }
-    
-    const bizBillRange = document.getElementById('biz-bill-range');
-    const bizBillValue = document.getElementById('biz-bill-value');
-    const bizSavingsPerc = document.getElementById('biz-savings-perc');
-    const bizCalcCta = document.getElementById('biz-calc-cta');
-    
-    if (bizBillRange && bizBillValue && bizCalcCta) {
-        bizBillRange.addEventListener('input', function() {
-            const billValue = this.value;
-            bizBillValue.textContent = `${billValue} AED`;
-            
-            // Calculate savings percentage
-            const bill = parseInt(billValue);
-            let savings = 90;
-            if (bill > 10000) savings = 85;
-            if (bill > 20000) savings = 80;
-            if (bill > 40000) savings = 75;
-            bizSavingsPerc.textContent = `${savings}%`;
-            
-            // Update the link with query parameter
-            bizCalcCta.href = `/calculator-results/?bill=${billValue}`;
+    });
+
+    // ---------- Step: Bill/Unit selection ----------
+    comOptBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentOption = btn.getAttribute('data-opt');
+            stepSelection.classList.add('hidden');
+            stepData.classList.remove('hidden');
+            const title = document.getElementById('data-title');
+            const label = document.getElementById('data-label');
+            const input = document.getElementById('modal-data-input');
+            if (currentOption === 'Bill') {
+                title.textContent = 'Enter Monthly Bill';
+                label.textContent = 'Bill Amount (BHD)';
+                input.placeholder = 'e.g. 150';
+            } else {
+                title.textContent = 'Enter Monthly Units';
+                label.textContent = 'Total Units (Monthly)';
+                input.placeholder = 'e.g. 1500';
+            }
+            input.focus();
         });
-        
-        // Initialize the link on page load
-        const initialBill = bizBillRange.value;
-        bizCalcCta.href = `/calculator-results/?bill=${initialBill}`;
+    });
+
+    // ---------- Enable submit button when data is entered ----------
+    document.getElementById('modal-data-input').addEventListener('input', () => {
+        if (document.getElementById('modal-data-input').value.trim()) {
+            submitData.classList.remove('bg-gray-400');
+            submitData.classList.add('bg-primary');
+        } else {
+            submitData.classList.remove('bg-primary');
+            submitData.classList.add('bg-gray-400');
+        }
+    });
+
+    // ---------- FINAL SUBMIT: Save to CalculatorLead API ----------
+    submitData.addEventListener('click', () => {
+        const dataValue = document.getElementById('modal-data-input').value.trim();
+
+        if (!dataValue) {
+            alert('Please enter a value');
+            return;
+        }
+
+        // Build payload for CalculatorLead (name is optional)
+        const payload = {
+            name: leadName || '',          // optional
+            phone: leadPhone,
+            location: leadLocation,
+            type: currentType,
+            commercial_option: currentOption,
+            value: parseFloat(dataValue)
+        };
+        if (currentType === 'Residential') {
+            payload.subsidy = currentSubsidy;
+        }
+
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        console.log('Submitting lead:', payload);  // DEBUG
+
+       fetch('{% url "calculator_lead_api" %}', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+    },
+    body: JSON.stringify(payload)
+})
+.then(async response => {
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(JSON.stringify(data));
     }
+    return data;
+})
+.then(data => {
+    if (data.success && data.lead_id) {
+        goToResults(data.lead_id, dataValue);
+    } else {
+        alert('Unexpected response: ' + JSON.stringify(data));
+    }
+})
+.catch(error => {
+    console.error('API Error:', error);
+    alert('Error saving lead: ' + error.message);
+});
+    });
 });
 </script>
 {% endblock %}

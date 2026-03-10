@@ -80,55 +80,18 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- EIFS Systems -->
+                    {% for service in sub_services %}
                     <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
                         <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-layer-group text-primary text-2xl group-hover:text-white transition-colors"></i>
+                            <i class="fas {{ service.icon }} text-primary text-2xl group-hover:text-white transition-colors"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">EIFS Systems</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Exterior Insulation and Finish Systems for ultimate thermal efficiency and weather protection.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">High Thermal R-Value</span>
+                        <h3 class="text-xl font-bold mb-4">{{ service.title }}</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">{{ service.description }}</p>
+                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">{{ service.badge }}</span>
                     </div>
-
-                    <!-- EIFS Materials & Accessories -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-box-open text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Materials & Accessories</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Premium grade meshes, adhesives, and base coats specifically engineered for EIFS longevity.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Industrial Grade</span>
-                    </div>
-
-                    <!-- E-Deck Roof Insulation -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-roof-precip text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">E-Deck Roof Insulation</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Advanced roofing insulation systems designed to minimize solar heat gain in extreme climates.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Reflective Tech</span>
-                    </div>
-
-                    <!-- Building Finishes -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-paint-roller text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Building Finishes</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">High-end acrylic and mineral finishes for a sophisticated, durable architectural look.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Premium Aesthetics</span>
-                    </div>
-
-                    <!-- Tools & Equipment -->
-                    <div class="bg-gray-50 p-8 rounded-[2rem] border border-gray-100 hover:shadow-xl hover:-translate-y-2 transition-all group">
-                        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            <i class="fas fa-tools text-primary text-2xl group-hover:text-white transition-colors"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-4">Tools & Equipment</h3>
-                        <p class="text-gray-600 text-sm mb-4 leading-relaxed italic">Specialized application tools for precision EIFS installation and building maintenance.</p>
-                        <span class="text-[10px] font-bold uppercase text-primary tracking-widest">Pro Grade</span>
-                    </div>
+                    {% empty %}
+                    <p class="text-center text-gray-500 col-span-full">No sub‑services added yet.</p>
+                    {% endfor %}
                 </div>
             </div>
         </section>

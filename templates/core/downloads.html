@@ -18,7 +18,7 @@
         </div>
     </section>
 
-    <!-- DOWNLOADS SECTION -->
+    <!-- DYNAMIC DOWNLOADS SECTION -->
     <section class="py-20">
         <div class="container mx-auto px-4 lg:px-12 xl:px-24">
             {% for category in categories %}
@@ -35,7 +35,7 @@
                                 {{ category.name }}
                             </h2>
 
-                            <!-- Dynamic Layout -->
+                            <!-- Layouts -->
                             {% if category.layout == 'grid_3_cols' %}
                                 <!-- 3‑Column Grid for Brochures -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -114,7 +114,7 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Download tracking (optional)
+        // Optional download tracking
         const downloadLinks = document.querySelectorAll('a[download]');
         downloadLinks.forEach(link => {
             link.addEventListener('click', function(e) {
@@ -126,13 +126,12 @@
                 
                 setTimeout(() => {
                     this.innerHTML = originalHTML;
-                    // You can log to analytics here
                     console.log(`Download started: ${fileName}`);
                 }, 300);
             });
         });
         
-        // Hover animation for cards (already handled via CSS, but we keep the effect)
+        // Hover animation for cards
         const downloadCards = document.querySelectorAll('.bg-white.p-6.rounded-3xl');
         downloadCards.forEach(card => {
             card.addEventListener('mouseenter', function() {

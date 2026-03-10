@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'seo',
     'channels',                    
     'core',
+    'service',
+
     'chatwidget',
     'users',
     'django_ckeditor_5',

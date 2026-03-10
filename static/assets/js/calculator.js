@@ -4,8 +4,8 @@
  */
 
 const SOLAR_PARAMS = {
-    utilityRate: 0.30,           // AED per kWh (Approximate average)
-    peakSunHours: 5.5,          // Average for UAE
+    utilityRate: 0.032,           // BHD per kWh (Approximate average)
+    peakSunHours: 5.5,          // Average for UAE (Keeping same sun hours)
     performanceRatio: 0.75,     // Efficiency factor (dust, temperature, inverter)
     panelWattage: 450,          // Watts per panel
     co2PerKwh: 0.5,             // kg of CO2 saved per kWh
@@ -15,8 +15,8 @@ const SOLAR_PARAMS = {
 };
 
 function calculateSolar(monthlyBill) {
-    // Calibrate based on 700 AED reference: 11 kWp system, 63 Sqm area
-    const scaleFactor = monthlyBill / 700;
+    // Calibrate based on 70 BHD reference: 11 kWp system, 63 Sqm area
+    const scaleFactor = monthlyBill / 70;
     const systemSize = 11 * scaleFactor;
     const numPanels = Math.ceil((systemSize * 1000) / SOLAR_PARAMS.panelWattage);
     const areaRequired = 63 * scaleFactor;
@@ -29,21 +29,21 @@ function calculateSolar(monthlyBill) {
     const co2Saved = yearlyProduction * SOLAR_PARAMS.co2PerKwh;
     const treesPlanted = Math.round(co2Saved * SOLAR_PARAMS.treesPerKgCo2);
     
-    // Projections logic (Calibrated to hit reference 20-yr savings at 700 AED)
-    // Performance: 1,176 AED @ 700
-    // Fixed: 954 AED @ 700
-    // Lease: 15,378 AED @ 700
-    const generatePlanData = (savingsAt700, upfront) => {
-        const net20YearSavings = Math.round(savingsAt700 * scaleFactor);
+    // Projections logic (Calibrated to hit reference 20-yr savings at 70 BHD)
+    // Performance: 117.6 BHD @ 70
+    // Fixed: 95.4 BHD @ 70
+    // Lease: 1537.8 BHD @ 70
+    const generatePlanData = (savingsAt70, upfront) => {
+        const net25YearSavings = Math.round(savingsAt70 * scaleFactor * (25 / 20)); // Adjusted for extra 5 years
         const planProjections = [];
         let cumulative = 0;
-        const yearIncrement = net20YearSavings / 20;
-        for (let year = 1; year <= 20; year++) {
+        const yearIncrement = net25YearSavings / 25;
+        for (let year = 1; year <= 25; year++) {
             cumulative += yearIncrement;
             planProjections.push(Math.round(cumulative));
         }
         return {
-            net20YearSavings,
+            net25YearSavings,
             outOfPocket: upfront,
             payback: upfront > 0 ? "5.2 Years" : "Immediate",
             projections: planProjections
@@ -63,13 +63,13 @@ function calculateSolar(monthlyBill) {
         areaRequired: Math.round(areaRequired),
         propertyValueIncrease: Math.round(systemSize * 3500 * 0.1),
         plans: {
-            performance: generatePlanData(1176, 0),
-            fixed: generatePlanData(954, 0),
+            performance: generatePlanData(120, 0),
+            fixed: generatePlanData(95, 0),
             leaseToOwn: {
-                ...generatePlanData(15378, 0),
-                monthlyPayment: Math.round(997 * scaleFactor),
+                ...generatePlanData(1500, 0),
+                monthlyPayment: Math.round(100 * scaleFactor),
                 leasePeriod: "60 Months",
-                outOfPocket: "0 AED"
+                outOfPocket: "0 BHD"
             }
         },
         technicalSpecs: {
